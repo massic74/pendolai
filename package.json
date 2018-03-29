@@ -10,7 +10,7 @@
     "express": "3.1.0",
     "body-parser": "1.18.2",
     "request": "2.85.0",
-    "telebot": "1.2.5",
+    "telebot": "1.2.5"
   },
   "author": "massic",
   "license": "ISC"
