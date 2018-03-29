@@ -1,15 +1,16 @@
 {
-  "name": "pendolai",
+  "name": "pendolarichefannoilbot",
   "version": "1.0.0",
   "description": "",
-  "main": "webhook.js",
+  "main": "telegram_bot.js",
   "scripts": {
-    "start": "node webhook.js"
+    "start": "node telegram_bot.js"
   },
   "dependencies": {
     "express": "3.1.0",
     "body-parser": "1.18.2",
-    "request": "2.85.0"
+    "request": "2.85.0",
+    "telebot": "1.2.5",
   },
   "author": "massic",
   "license": "ISC"
