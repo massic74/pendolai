@@ -12,6 +12,7 @@ const app = express();
 const TeleBot = require('telebot');
 //const bot = new TeleBot('589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo');
 const token = '589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo';
+const PORT = process.env.PORT || 5000
 
 const bot = new TeleBot({
     token: token
@@ -24,6 +25,7 @@ var config = {
   serviceAccount: "pendolarichefannoilbot-firebase-adminsdk-x5aji-a3b1d8982e.json"
 };
 firebase.initializeApp(config);
+app.listen(PORT, () => console.log('Listening on ${ PORT }'));
 
 app.post('/webook/telegram_', function (req, res) {
   bot.processUpdate(req.body);
