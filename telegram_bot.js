@@ -177,13 +177,14 @@ function sendAnalytics(conversationID,msg, from, msgType){
     .setPlatform('Telegram').setTimestamp(Date.now().toString()).setMessage(msg)
     if(msgType == 'handled'){
        newMsg.setAsHandled()
-    }else if (msgType == 'not_handled') {
+    }else if (msgType === 'not_handled') {
         newMsg.setAsNotHandled()
     }
     if(from == 'user'){
        newMsg.setAsTypeUser()
-    }else if (from == 'agent') {
+    }else if (from === 'agent') {
         newMsg.setAsTypeAgent()
     }
+    console.log(newMsg.toString());
     newMsg.send().catch(err => console.error(err));
 }
