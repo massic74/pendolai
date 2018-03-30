@@ -42,7 +42,7 @@ bot.start();
 bot.on('text', msg => {
     let numeroTreno = msg.text;
 
-    sendAnalytics(msg.chat.id,numeroTreno, 'user', 'handled');
+  //  sendAnalytics(msg.chat.id,numeroTreno, 'user', 'handled');
 
     let promise;
     console.log(`messaggio dall'utente: ${ numeroTreno }`);
@@ -55,21 +55,21 @@ bot.on('text', msg => {
             'Oppure digita help per avere una lista di comandi che sono in grado di eseguire! Enjoy ;)';
 
             bot.sendMessage(msg.from.id,testo );
-            sendAnalytics(msg.chat.id,testo, 'agent', 'handled');
+          //  sendAnalytics(msg.chat.id,testo, 'agent', 'handled');
 
     }else if (numeroTreno.toLowerCase().indexOf('trenitalia') != -1) {
               bot.sendMessage(msg.from.id, 'Non nominare Trenitalia invano :D');
-                sendAnalytics(msg.chat.id,'Non nominare Trenitalia invano :D', 'agent', 'handled');
+          //      sendAnalytics(msg.chat.id,'Non nominare Trenitalia invano :D', 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('help') != -1) {
               var testo = 'Allora le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno'
               bot.sendMessage(msg.from.id, testo );
-              sendAnalytics(msg.chat.id,testo, 'agent', 'handled');
+        //      sendAnalytics(msg.chat.id,testo, 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('chi sei') != -1) {
               bot.sendMessage(msg.from.id, 'Massic -> https://twitter.com/massic');
-              sendAnalytics(msg.chat.id,'Massic -> https://twitter.com/massic', 'agent', 'handled');
+        //      sendAnalytics(msg.chat.id,'Massic -> https://twitter.com/massic', 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('come ti chiami') != -1) {
               bot.sendMessage(msg.from.id, 'Massic ');
-              sendAnalytics(msg.chat.id,'Massic ', 'agent', 'handled');
+        //      sendAnalytics(msg.chat.id,'Massic ', 'agent', 'handled');
     }else{
       var uri1 = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/' + numeroTreno;
     //  console.log('URLO1: ', uri1);
@@ -80,7 +80,7 @@ bot.on('text', msg => {
                                   ' Ricorda che puoi chiedermi a che punto sta il tuo treno semplicemente chattandomi il numero del treno! \n' +
                                   ' Digita help per sapere altre cosucce che puoi chiedermi! Enjoy ;)';
                                                 bot.sendMessage(msg.from.id, risposta);
-                                                sendAnalytics(msg.chat.id,risposta, 'agent', 'handled');
+                                          //      sendAnalytics(msg.chat.id,risposta, 'agent', 'handled');
                       } else{
                           stazione = body.toString();
                           var arr = stazione.split('-');
@@ -99,12 +99,12 @@ bot.on('text', msg => {
 
                                           //bot.sendMessage(msg.from.id, 'Ciao non ti si vede dal: ' + lastSeen(msg));
                                           bot.sendMessage(msg.from.id, messaggio);
-                                          sendAnalytics(msg.chat.id,messaggio, 'agent', 'handled');
+                                    //      sendAnalytics(msg.chat.id,messaggio, 'agent', 'handled');
                                           sendGifByRitardo(ritardo, msg.chat.id);
                                           saveMessage(msg,ritardo);
                                     } catch (e) {
                                        bot.sendMessage(msg.from.id, risposta);
-                                       sendAnalytics(msg.chat.id,messaggio, 'agent', 'not_handled');
+                                //       sendAnalytics(msg.chat.id,messaggio, 'agent', 'not_handled');
                                     }
 
                           })
