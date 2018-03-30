@@ -172,10 +172,9 @@ function sendGifByRitardo(ritardo, chatid){
 }
 
 function sendAnalytics(conversationID,msg, from, msgType){
-
+// MANDATORY FIELDS: api_key, type, user_id, time_stamp, platform, message
    	var newMsg = chatbase.newMessage('941b2adc-c0ba-4d9c-93e0-105b1736a495', conversationID)
-    .setPlatform('Telegram').setTimestamp(Date.now().toString())
-    newMsg.setMessage(msg)
+    .setPlatform('Telegram').setTimestamp(Date.now().toString()).setMessage(msg)
     if(msgType == 'handled'){
        newMsg.setAsHandled()
     }else if (msgType == 'not_handled') {
