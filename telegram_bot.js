@@ -176,7 +176,10 @@ function sendAnalytics(conversationID,msg, from, msgType){
 
 //console.log('MESSAGGIO DA MANDARE: ' + msg);
 
-   	var newMsg = chatbase.newMessage('941b2adc-c0ba-4d9c-93e0-105b1736a495', conversationID).setPlatform('Telegram').setTimestamp(Date.now().toString()).setMessage(msg).setApiKey(process.env.MY_CHATBASE_KEY)
+   	var newMsg = chatbase.newMessage('941b2adc-c0ba-4d9c-93e0-105b1736a495', conversationID)
+    .setPlatform('Telegram')
+    .setTimestamp(Date.now().toString())
+    .setMessage(msg)
     if(msgType == 'handled'){
        newMsg.setAsHandled()
        console.log('set as handled');
