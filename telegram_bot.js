@@ -71,7 +71,7 @@ bot.on('text', msg => {
               bot.sendMessage(msg.from.id, 'Non nominare Trenitalia invano :D');
           //      sendAnalytics(msg.chat.id,'Non nominare Trenitalia invano :D', 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('avvisi') != -1) {
-              displayFeedRSS(msg_from_id)
+              displayFeedRSS(msg.from.id)
     }else if (numeroTreno.toLowerCase().indexOf('help') != -1) {
               var testo = 'Allora le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno'
               bot.sendMessage(msg.from.id, testo );
