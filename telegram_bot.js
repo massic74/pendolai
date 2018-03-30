@@ -176,7 +176,13 @@ function sendAnalytics(conversationID,msg, from, msgType){
 
 console.log('MESSAGGIO DA MANDARE: ' + msg);
 
-   	var newMsg = chatbase.newMessage('941b2adc-c0ba-4d9c-93e0-105b1736a495', conversationID).setPlatform('Telegram').setTimestamp(Date.now().toString()).setMessage(msg)
+   	var newMsg = chatbase.newMessage()
+    .setPlatform('Telegram')
+    .setTimestamp(Date.now().toString())
+    .setMessage(msg)
+    .setApiKey('941b2adc-c0ba-4d9c-93e0-105b1736a495')
+    .setUserId(conversationID)
+
     if(msgType == 'handled'){
        newMsg.setAsHandled()
        console.log('set as handled');
@@ -191,6 +197,6 @@ console.log('MESSAGGIO DA MANDARE: ' + msg);
         newMsg.setAsTypeAgent()
         console.log('set as agent');
     }
-    console.log(newMsg.toString());
+    
     newMsg.send().catch(err => console.error(err));
 }
