@@ -21,7 +21,7 @@ var chatbase = require('@google/chatbase');
 const app = express();
 const TeleBot = require('telebot');
 //const bot = new TeleBot('589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo');
-const token = '589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo';
+const token = process.env.bot_token;
 const PORT = process.env.PORT || 5000
 let Parser = require('rss-parser');
 
@@ -30,10 +30,10 @@ const bot = new TeleBot({
 });
 var firebase = require('firebase');
 var config = {
-  apiKey: 'AIzaSyBAeV-Rvuqd1vIyG-Ct2_3NLHfg1FABdv0',
+  apiKey: process.env.firebase_key,
   authDomain: 'pendolarichefannoilbot.firebaseapp.com',
   databaseURL: 'https://pendolarichefannoilbot.firebaseio.com',
-  serviceAccount: 'pendolarichefannoilbot-firebase-adminsdk-x5aji-a3b1d8982e.json'
+  serviceAccount: process.env.firebase_credentials
 };
 firebase.initializeApp(config);
 app.listen(PORT, () => console.log('Listening on ${ PORT }'));
@@ -164,7 +164,7 @@ function saveMessage(msg,ritardo) {
 }
 
 function sendGifByRitardo(ritardo, chatid){
-  var giphyKey = 'smOdpn7EVry49DPEISunsibhUFGdb05p';
+  var giphyKey = process.env.giphy_key;
   //let sender = event.sender.id;
   let tag = '';
   let uri_start = 'https://api.giphy.com/v1/gifs/random?api_key=smOdpn7EVry49DPEISunsibhUFGdb05p&tag=';
@@ -194,7 +194,7 @@ function sendGifByRitardo(ritardo, chatid){
 */
 function sendAnalytics(conversationID,msg, from, msgType){
 // MANDATORY FIELDS: api_key, type, user_id, time_stamp, platform, message
-   	var newMsg = chatbase.newMessage('941b2adc-c0ba-4d9c-93e0-105b1736a495', conversationID)
+   	var newMsg = chatbase.newMessage(process.env.chatbase_key, conversationID)
     .setPlatform('Telegram')
     .setTimestamp(Date.now().toString())
     .setMessage(msg)
