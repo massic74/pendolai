@@ -23,6 +23,7 @@ const TeleBot = require('telebot');
 //const bot = new TeleBot('589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo');
 const token = '589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo';
 const PORT = process.env.PORT || 5000
+let Parser = require('rss-parser');
 
 const bot = new TeleBot({
     token: token
@@ -69,6 +70,8 @@ bot.on('text', msg => {
     }else if (numeroTreno.toLowerCase().indexOf('trenitalia') != -1) {
               bot.sendMessage(msg.from.id, 'Non nominare Trenitalia invano :D');
           //      sendAnalytics(msg.chat.id,'Non nominare Trenitalia invano :D', 'agent', 'handled');
+    }else if (numeroTreno.toLowerCase().indexOf('avvisi') != -1) {
+              displayFeedRSS(msg_from_id)
     }else if (numeroTreno.toLowerCase().indexOf('help') != -1) {
               var testo = 'Allora le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno'
               bot.sendMessage(msg.from.id, testo );
@@ -134,16 +137,22 @@ bot.on('text', msg => {
 
 
 });
-/*
-function lastSeen(msg){
-  var ref = firebase.app().database().ref();
-  var usersRef = ref.child('ritardi/' + msg.id);
-  usersRef.orderByKey().on('value', function(snap) {
-     console.log( snap.val());
-     return snap.val();
-  });
+
+function displayFeedRSS(msg_from_id){
+  let parser = new Parser();
+  (async () => {
+    let feed = await parser.parseURL('view-source:http://www.fsnews.it/cms/v/index.jsp?vgnextoid=645968ae9d50a110VgnVCM10000080a3e90aRCRD');
+  //  console.log(feed.title);
+
+    feed.items.forEach(item => {
+      //console.log(item.title + ':' + item.link)
+       bot.sendMessage(msg_from_id, item.title + ':' + item.link);
+    });
+
+  })();
+
+
 }
-*/
 
 function saveMessage(msg,ritardo) {
   var timestamp = (new Date()).getTime();
@@ -186,11 +195,11 @@ function sendGifByRitardo(ritardo, chatid){
   })
 }
 
+/*
+* NOT USED
+*/
 function sendAnalytics(conversationID,msg, from, msgType){
 // MANDATORY FIELDS: api_key, type, user_id, time_stamp, platform, message
-
-//console.log('MESSAGGIO DA MANDARE: ' + msg);
-
    	var newMsg = chatbase.newMessage('941b2adc-c0ba-4d9c-93e0-105b1736a495', conversationID)
     .setPlatform('Telegram')
     .setTimestamp(Date.now().toString())
@@ -209,16 +218,5 @@ function sendAnalytics(conversationID,msg, from, msgType){
         newMsg.setAsTypeAgent()
         console.log('set as agent');
     }
-/*    console.log(newMsg.getPlatform());
-      console.log(newMsg.getMessage());
-        console.log(newMsg.getUserId());
-            console.log(newMsg.getApiKey());
-                        console.log(newMsg.getAsTypeUser());
-                                  console.log(newMsg.getTimestamp());
-          console.log(newMsg.getAsNotHandled());
-                    console.log(newMsg.getAsHandled());
-                                        console.log(newMsg.getAsTypeAgent()); */
-
-
     newMsg.send().catch(err => console.error(err));
 }
