@@ -1,26 +1,11 @@
-/*
 
-
-https://api.telegram.org/bot589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo/setWebhook?url=https://1591842e.ngrok.io/webhook/telegram_589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo
-https://api.telegram.org/bot589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo/setWebhook?url=https://pendolai.herokuapp.com/webhook/telegram_589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo
- https://t.me/pendolarichefannoilbot
-###commands supported
-
-help - la lista di tutti i comandi che sono supportati
-ciao - presentazione ufficiale del bot
-chi - chi è il suo creatore
-trenitalia - scherzetto
-treno - digita il numero del tuo treno per sapere come è la situazione
-avvisi - criticità e avvisi (work in progress)
-
-*/
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 var chatbase = require('@google/chatbase');
 const app = express();
 const TeleBot = require('telebot');
-//const bot = new TeleBot('589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo');
+
 const token = process.env.bot_token;
 const PORT = process.env.PORT || 5000
 let Parser = require('rss-parser');
@@ -167,7 +152,7 @@ function sendGifByRitardo(ritardo, chatid){
   var giphyKey = process.env.giphy_key;
   //let sender = event.sender.id;
   let tag = '';
-  let uri_start = 'https://api.giphy.com/v1/gifs/random?api_key=smOdpn7EVry49DPEISunsibhUFGdb05p&tag=';
+  let uri_start = 'https://api.giphy.com/v1/gifs/random?api_key='+giphyKey+'&tag=';
   let uri_end = '&rating=G';
 
   if(ritardo.toLowerCase().indexOf('orario') != -1){
