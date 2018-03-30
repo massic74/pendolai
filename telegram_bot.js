@@ -4,6 +4,15 @@
 https://api.telegram.org/bot589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo/setWebhook?url=https://1591842e.ngrok.io/webhook/telegram_589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo
 https://api.telegram.org/bot589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo/setWebhook?url=https://pendolai.herokuapp.com/webhook/telegram_589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo
  https://t.me/pendolarichefannoilbot
+###commands supported
+
+help - la lista di tutti i comandi che sono supportati
+ciao - presentazione ufficiale del bot
+chi - chi è il suo creatore
+trenitalia - scherzetto
+treno - digita il numero del tuo treno per sapere come è la situazione
+avvisi - criticità e avvisi (work in progress)
+
 */
 const express = require('express');
 const request = require('request');
@@ -73,7 +82,7 @@ bot.on('text', msg => {
     }else{
       var uri1 = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/' + numeroTreno;
     //  console.log('URLO1: ', uri1);
-
+      try{
             request({ uri: uri1 }, function(err, response, body){
                       if(body.toString() === ''){
                         risposta = 'Sei sicuro di aver inserito un numero di treno valido?? \n' +
@@ -113,6 +122,10 @@ bot.on('text', msg => {
 
 
             });
+        }catch (e){
+           console.error(err)
+           bot.sendMessage(msg.from.id, risposta);
+        }
 
     }
 
