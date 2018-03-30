@@ -8,6 +8,7 @@ https://api.telegram.org/bot589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo/setWeb
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
+var chatbase = require('@google/chatbase');
 const app = express();
 const TeleBot = require('telebot');
 //const bot = new TeleBot('589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo');
@@ -17,12 +18,12 @@ const PORT = process.env.PORT || 5000
 const bot = new TeleBot({
     token: token
 });
-var firebase = require("firebase");
+var firebase = require('firebase');
 var config = {
-  apiKey: "AIzaSyBAeV-Rvuqd1vIyG-Ct2_3NLHfg1FABdv0",
-  authDomain: "pendolarichefannoilbot.firebaseapp.com",
-  databaseURL: "https://pendolarichefannoilbot.firebaseio.com",
-  serviceAccount: "pendolarichefannoilbot-firebase-adminsdk-x5aji-a3b1d8982e.json"
+  apiKey: 'AIzaSyBAeV-Rvuqd1vIyG-Ct2_3NLHfg1FABdv0',
+  authDomain: 'pendolarichefannoilbot.firebaseapp.com',
+  databaseURL: 'https://pendolarichefannoilbot.firebaseio.com',
+  serviceAccount: 'pendolarichefannoilbot-firebase-adminsdk-x5aji-a3b1d8982e.json'
 };
 firebase.initializeApp(config);
 app.listen(PORT, () => console.log('Listening on ${ PORT }'));
@@ -40,28 +41,35 @@ bot.start();
 
 bot.on('text', msg => {
     let numeroTreno = msg.text;
+
+    sendAnalytics(numeroTreno, 'user', 'handled');
+
     let promise;
     console.log(`messaggio dall'utente: ${ numeroTreno }`);
     var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
     const answers = bot.answerList(msg.id, {cacheTime: 60});
 
     if(numeroTreno.toLowerCase().indexOf('ciao') != -1){
-            bot.sendMessage(msg.from.id, 'Ciao anche a te, sono il primo ChatBot per treni sviluppato interamente a bordo di un treno :)) \n ' +
+            var testo = 'Ciao anche a te, sono il primo ChatBot per treni sviluppato interamente a bordo di un treno :)) \n ' +
             'Puoi chiedermi a che punto sta il tuo treno semplicemente chattandomi il numero del treno! \n' +
-            'Oppure digita help per avere una lista di comandi che sono in grado di eseguire! Enjoy ;)');
+            'Oppure digita help per avere una lista di comandi che sono in grado di eseguire! Enjoy ;)';
+
+            bot.sendMessage(msg.from.id,testo );
+            sendAnalytics(testo, 'agent', 'handled');
 
     }else if (numeroTreno.toLowerCase().indexOf('trenitalia') != -1) {
               bot.sendMessage(msg.from.id, 'Non nominare Trenitalia invano :D');
-
+                sendAnalytics('Non nominare Trenitalia invano :D', 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('help') != -1) {
-              bot.sendMessage(msg.from.id, 'Allora le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno');
-
+              var testo = 'Allora le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno'
+              bot.sendMessage(msg.from.id, testo );
+              sendAnalytics(testo, 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('chi sei') != -1) {
               bot.sendMessage(msg.from.id, 'Massic -> https://twitter.com/massic');
-
+              sendAnalytics('Massic -> https://twitter.com/massic', 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('come ti chiami') != -1) {
               bot.sendMessage(msg.from.id, 'Massic ');
-
+              sendAnalytics('Massic ', 'agent', 'handled');
     }else{
       var uri1 = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/' + numeroTreno;
     //  console.log('URLO1: ', uri1);
@@ -72,10 +80,11 @@ bot.on('text', msg => {
                                   ' Ricorda che puoi chiedermi a che punto sta il tuo treno semplicemente chattandomi il numero del treno! \n' +
                                   ' Digita help per sapere altre cosucce che puoi chiedermi! Enjoy ;)';
                                                 bot.sendMessage(msg.from.id, risposta);
+                                                sendAnalytics(risposta, 'agent', 'handled');
                       } else{
                           stazione = body.toString();
                           var arr = stazione.split('-');
-                          stazione = arr[2].toString().replace(/\r?\n|\r/g, "").replace(' ','');
+                          stazione = arr[2].toString().replace(/\r?\n|\r/g, '').replace(' ','');
                         //  console.log('STAZIOnE: ', stazione);
                           request({ uri: 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/' + stazione + '/' + numeroTreno }, function(err, response, body){
                               //  console.log('URLO2', 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/' + stazione + '/' + numeroTreno);
@@ -90,10 +99,12 @@ bot.on('text', msg => {
 
                                           //bot.sendMessage(msg.from.id, 'Ciao non ti si vede dal: ' + lastSeen(msg));
                                           bot.sendMessage(msg.from.id, messaggio);
+                                          sendAnalytics(messaggio, 'agent', 'handled');
                                           sendGifByRitardo(ritardo, msg.chat.id);
                                           saveMessage(msg,ritardo);
                                     } catch (e) {
                                        bot.sendMessage(msg.from.id, risposta);
+                                       sendAnalytics(messaggio, 'agent', 'not_handled');
                                     }
 
                           })
@@ -108,7 +119,7 @@ bot.on('text', msg => {
 
 
 });
-
+/*
 function lastSeen(msg){
   var ref = firebase.app().database().ref();
   var usersRef = ref.child('ritardi/' + msg.id);
@@ -117,7 +128,7 @@ function lastSeen(msg){
      return snap.val();
   });
 }
-
+*/
 
 function saveMessage(msg,ritardo) {
   var timestamp = (new Date()).getTime();
@@ -158,4 +169,21 @@ function sendGifByRitardo(ritardo, chatid){
 
       })
   })
+}
+
+function sendAnalytics(msg, from, msgType){
+
+   	var newMsg = chatbase.newMessage('941b2adc-c0ba-4d9c-93e0-105b1736a495', msg.from.id)
+    .setPlatform('Telegram').setTimestamp(Date.now().toString())
+    newMsg.setMessage(msg)
+    if(msgType == 'handled'){
+       newMsg.setAsHandled()
+    }else if (msgType == 'not_handled') {
+        newMsg.setAsNotHandled()
+    }
+    if(from == 'user'){
+       newMsg.setAsTypeUser()
+    }else if (from == 'agent') {
+        newMsg.setAsTypeAgent()
+    }
 }
