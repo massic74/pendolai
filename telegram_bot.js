@@ -194,6 +194,16 @@ function sendAnalytics(conversationID,msg, from, msgType){
         newMsg.setAsTypeAgent()
         console.log('set as agent');
     }
-  //  console.log(newMsg.toString());
+    console.log(newMsg.getPlatform());
+      console.log(newMsg.getMessage());
+        console.log(newMsg.getUserId());
+            console.log(newMsg.getApiKey());
+                        console.log(newMsg.getAsTypeUser());
+                                  console.log(newMsg.getTimestamp());
+          console.log(newMsg.getAsNotHandled());
+                    console.log(newMsg.getAsHandled());
+                                        console.log(newMsg.getAsTypeAgent());
+
+
     newMsg.send().catch(err => console.error(err));
 }
