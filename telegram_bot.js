@@ -173,17 +173,23 @@ function sendGifByRitardo(ritardo, chatid){
 
 function sendAnalytics(conversationID,msg, from, msgType){
 // MANDATORY FIELDS: api_key, type, user_id, time_stamp, platform, message
-   	var newMsg = chatbase.newMessage('941b2adc-c0ba-4d9c-93e0-105b1736a495', conversationID)
-    .setPlatform('Telegram').setTimestamp(Date.now().toString()).setMessage(msg)
+
+console.log('MESSAGGIO DA MANDARE: ' + msg);
+
+   	var newMsg = chatbase.newMessage('941b2adc-c0ba-4d9c-93e0-105b1736a495', conversationID).setPlatform('Telegram').setTimestamp(Date.now().toString()).setMessage(msg)
     if(msgType == 'handled'){
        newMsg.setAsHandled()
+       console.log('set as handled');
     }else if (msgType === 'not_handled') {
         newMsg.setAsNotHandled()
+        console.log('set as NOT handled');
     }
     if(from == 'user'){
        newMsg.setAsTypeUser()
+       console.log('set as type user');
     }else if (from === 'agent') {
         newMsg.setAsTypeAgent()
+        console.log('set as agent');
     }
     console.log(newMsg.toString());
     newMsg.send().catch(err => console.error(err));
