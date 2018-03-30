@@ -82,7 +82,7 @@ bot.on('text', msg => {
     }else{
       var uri1 = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/' + numeroTreno;
     //  console.log('URLO1: ', uri1);
-      try{
+
             request({ uri: uri1 }, function(err, response, body){
                       if(body.toString() === ''){
                         risposta = 'Sei sicuro di aver inserito un numero di treno valido?? \n' +
@@ -91,6 +91,7 @@ bot.on('text', msg => {
                                                 bot.sendMessage(msg.from.id, risposta);
                                           //      sendAnalytics(msg.chat.id,risposta, 'agent', 'handled');
                       } else{
+                      try{
                           stazione = body.toString();
                           var arr = stazione.split('-');
                           stazione = arr[2].toString().replace(/\r?\n|\r/g, '').replace(' ','');
@@ -117,15 +118,16 @@ bot.on('text', msg => {
                                     }
 
                           })
+                        }catch (e){
+                           console.error(err)
+                           bot.sendMessage(msg.from.id, risposta);
+                        }
 
                       }
 
 
             });
-        }catch (e){
-           console.error(err)
-           bot.sendMessage(msg.from.id, risposta);
-        }
+
 
     }
 
