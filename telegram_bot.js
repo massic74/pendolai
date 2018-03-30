@@ -140,11 +140,11 @@ bot.on('text', msg => {
 
 function displayFeedRSS(msg_from_id){
   let parser = new Parser();
-  let feed = parser.parseURL('view-source:http://www.fsnews.it/cms/v/index.jsp?vgnextoid=645968ae9d50a110VgnVCM10000080a3e90aRCRD');
+  let feed = parser.parseURL('http://www.fsnews.it/cms/v/index.jsp?vgnextoid=645968ae9d50a110VgnVCM10000080a3e90aRCRD');
   feed.items.forEach(item => {
        bot.sendMessage(msg_from_id, item.title + ':' + item.link);
     }).catch(function(error) {
-      console.log('Save error');
+      console.log(error);
     });
 
 }
