@@ -186,4 +186,5 @@ function sendAnalytics(conversationID,msg, from, msgType){
     }else if (from == 'agent') {
         newMsg.setAsTypeAgent()
     }
+    newMsg.send().catch(err => console.error(err));
 }
