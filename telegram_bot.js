@@ -1,7 +1,7 @@
 /*
 
 
-https://api.telegram.org/bot589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo/setWebhook?url=https://79cc3fc8.ngrok.io/webhook/telegram_589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo
+https://api.telegram.org/bot589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo/setWebhook?url=https://1591842e.ngrok.io/webhook/telegram_589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo
 https://api.telegram.org/bot589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo/setWebhook?url=https://pendolai.herokuapp.com/webhook/telegram_589794421:AAFjVnpgpmNrCXLzjCIhf_XB4dD0ODGJOoo
  https://t.me/pendolarichefannoilbot
 */
@@ -42,7 +42,7 @@ bot.on('text', msg => {
     let numeroTreno = msg.text;
     let promise;
     console.log(`messaggio dall'utente: ${ numeroTreno }`);
-    var risposta = 'Forse non ho capito, mi scuso per il disagio';
+    var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
     const answers = bot.answerList(msg.id, {cacheTime: 60});
 
     if(numeroTreno.toLowerCase().indexOf('ciao') != -1){
@@ -63,37 +63,46 @@ bot.on('text', msg => {
               bot.sendMessage(msg.from.id, 'Massic ');
 
     }else{
-      request({ uri: 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/' + numeroTreno }, function(err, response, body){
-                if(body.toString() === ''){
-                  risposta = 'Sei sicuro di aver inserito un numero di treno valido?? \n' +
-                            ' Ricorda che puoi chiedermi a che punto sta il tuo treno semplicemente chattandomi il numero del treno! \n' +
-                            ' Digita help per sapere altre cosucce che puoi chiedermi! Enjoy ;)';
-                                          bot.sendMessage(msg.from.id, risposta);
-                } else{
-                    stazione = body.toString();
-                    var arr = stazione.split('-');
-                    stazione = arr[2].toString().replace(/\r?\n|\r/g, "");
-                    request({ uri: 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/' + stazione + '/' + numeroTreno }, function(err, response, body){
-                          //console.log('URLO2', 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/' + stazione + '/' + numeroTreno);
-                          var bodyJSON = JSON.parse(body);
-                          var ritardo = '';
-                          ritardo = bodyJSON.compRitardo[0];
-                          //var gif = getGifByRitardo(ritardo);
-                          var doveSiTrovaAdesso = bodyJSON.stazioneUltimoRilevamento;
-                        //  console.log('ritardo ......', response);
-                          var messaggio = 'Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
+      var uri1 = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/' + numeroTreno;
+    //  console.log('URLO1: ', uri1);
 
-                          //bot.sendMessage(msg.from.id, 'Ciao non ti si vede dal: ' + lastSeen(msg));
-                          bot.sendMessage(msg.from.id, messaggio);
-                          sendGifByRitardo(ritardo, msg.chat.id);
-                          saveMessage(msg,ritardo);
+            request({ uri: uri1 }, function(err, response, body){
+                      if(body.toString() === ''){
+                        risposta = 'Sei sicuro di aver inserito un numero di treno valido?? \n' +
+                                  ' Ricorda che puoi chiedermi a che punto sta il tuo treno semplicemente chattandomi il numero del treno! \n' +
+                                  ' Digita help per sapere altre cosucce che puoi chiedermi! Enjoy ;)';
+                                                bot.sendMessage(msg.from.id, risposta);
+                      } else{
+                          stazione = body.toString();
+                          var arr = stazione.split('-');
+                          stazione = arr[2].toString().replace(/\r?\n|\r/g, "").replace(' ','');
+                        //  console.log('STAZIOnE: ', stazione);
+                          request({ uri: 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/' + stazione + '/' + numeroTreno }, function(err, response, body){
+                              //  console.log('URLO2', 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/' + stazione + '/' + numeroTreno);
+                                  try {
+                                          var bodyJSON = JSON.parse(body);
+                                          var ritardo = '';
+                                          ritardo = bodyJSON.compRitardo[0];
+                                          //var gif = getGifByRitardo(ritardo);
+                                          var doveSiTrovaAdesso = bodyJSON.stazioneUltimoRilevamento;
+                                        //  console.log('ritardo ......', response);
+                                          var messaggio = 'Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
 
-                    })
+                                          //bot.sendMessage(msg.from.id, 'Ciao non ti si vede dal: ' + lastSeen(msg));
+                                          bot.sendMessage(msg.from.id, messaggio);
+                                          sendGifByRitardo(ritardo, msg.chat.id);
+                                          saveMessage(msg,ritardo);
+                                    } catch (e) {
+                                       bot.sendMessage(msg.from.id, risposta);
+                                    }
 
-                }
+                          })
+
+                      }
 
 
-      });
+            });
+
     }
 
 
