@@ -73,7 +73,7 @@ bot.on('text', msg => {
     }else if (numeroTreno.toLowerCase().indexOf('avvisi') != -1) {
               displayFeedRSS(msg.from.id)
     }else if (numeroTreno.toLowerCase().indexOf('help') != -1) {
-              var testo = 'Allora le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno \n Avvisi'
+              var testo = 'Allora le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno \n - Avvisi'
               bot.sendMessage(msg.from.id, testo );
         //      sendAnalytics(msg.chat.id,testo, 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('chi sei') != -1) {
