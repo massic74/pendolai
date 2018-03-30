@@ -73,7 +73,7 @@ bot.on('text', msg => {
     }else if (numeroTreno.toLowerCase().indexOf('avvisi') != -1) {
               displayFeedRSS(msg.from.id)
     }else if (numeroTreno.toLowerCase().indexOf('help') != -1) {
-              var testo = 'Allora le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno'
+              var testo = 'Allora le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno \n Avvisi'
               bot.sendMessage(msg.from.id, testo );
         //      sendAnalytics(msg.chat.id,testo, 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('chi sei') != -1) {
@@ -140,24 +140,12 @@ bot.on('text', msg => {
 
 function displayFeedRSS(msg_from_id){
   let parser = new Parser();
-  //let feed = parser.parseURL('http://www.fsnews.it/cms/v/index.jsp?vgnextoid=645968ae9d50a110VgnVCM10000080a3e90aRCRD');
-  //https://www.reddit.com/.rss
-  //http://www.fsnews.it/cms/v/index.jsp?vgnextoid=645968ae9d50a110VgnVCM10000080a3e90aRCRD
   (async () => {
-
     let feed = await parser.parseURL('http://www.fsnews.it/cms/v/index.jsp?vgnextoid=645968ae9d50a110VgnVCM10000080a3e90aRCRD');
     feed.items.forEach(item => {
        bot.sendMessage(msg_from_id, item.title + ':' + item.link);
     });
-
   })();
-  /*
-  feed.items.forEach(item => {
-       bot.sendMessage(msg_from_id, item.title + ':' + item.link);
-    }).catch(function(error) {
-      console.log(error);
-    });
-*/
 }
 
 function saveMessage(msg,ritardo) {
