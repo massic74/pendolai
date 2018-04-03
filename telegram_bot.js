@@ -45,13 +45,14 @@ bot.on(['/start'], msg => {
 });
 
 bot.on('/italian', msg => {
-    return saveLanguagePreference(msg, 'ita');
+     saveLanguagePreference(msg, 'ita');
+     return bot.sendMessage(msg.from.id,'Grazie, le tue preferenze di linguaggio sono state salvate!');
 
 });
 bot.on('/english', msg => {
 
-      return saveLanguagePreference(msg, 'eng');
-
+      saveLanguagePreference(msg, 'eng');
+      return bot.sendMessage(msg.from.id,'Thanx your languages settings have been saved successfully ;)');
 });
 
 bot.on('/treno', msg => {
@@ -130,14 +131,9 @@ function getRitardo(msg){
                                         }else if(getLanguagePref(msg) === 'it'){
                                               messaggio = messaggio + ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
                                         }
-
-
                                         bot.sendMessage(msg.from.id, messaggio);
-
                                         sendGifByRitardo(ritardo, msg.chat.id);
                                         saveMessage(msg,ritardo);
-
-                                        
                                   } catch (e) {
                                      bot.sendMessage(msg.from.id, risposta);
 
@@ -185,6 +181,7 @@ function getLanguagePref(msg){
 }
 
 function saveLanguagePreference(msg, lang){
+  var feedback = 'Lingua di default settata a italiano!';
   var langPref= '';
   if(lang === 'eng'){
     langPref = 'en';
@@ -199,11 +196,6 @@ function saveLanguagePreference(msg, lang){
   }).catch(function(error) {
     console.log('Save language preference error');
   });
-  if(lang === 'eng'){
-    bot.sendMessage(msg.from.id,'Thanx your languages settings have been saved successfully ;)');
-  }else if(lang === 'ita'){
-    bot.sendMessage(msg.from.id,'Grazie, le tue preferenze di linguaggio sono state salvate!');
-  }
 
 }
 
