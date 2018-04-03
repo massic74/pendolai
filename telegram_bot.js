@@ -135,7 +135,7 @@ function displayFeedRSS(msg_from_id){
 
 function saveMessage(msg,ritardo) {
   var timestamp = (new Date()).getTime();
-  var d = new Date(1382086394000);
+  var d = new Date(timestamp);
 //  console.log('When: ' +  d.toString());
 
   firebase.app().database().ref('/ritardi/').child(msg.from.id).push({
