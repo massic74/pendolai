@@ -48,7 +48,7 @@ bot.on('/italian', msg => {
 
 });
 bot.on('/english', msg => {
-    
+
       return saveLanguagePreference(msg, 'eng');
 
 });
@@ -187,7 +187,7 @@ function saveLanguagePreference(msg, lang){
   }
   firebase.app().database().ref('/ritardi/').child(msg.from.id).set({
     userID: msg.from.id,
-    lang: langPref;
+    lang: langPref
   }).then(function() {
     console.log('Save language preference successful');
   }).catch(function(error) {
