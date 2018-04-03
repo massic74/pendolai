@@ -56,7 +56,7 @@ bot.on('/english', msg => {
 bot.on('/treno', msg => {
 
   if(msg.text === '/treno'){
-    return bot.sendMessage(msg.from.id, 'Inline keyboard example.', 'Scrivimi /treno <numero treno> Es: /treno 2285');
+    return bot.sendMessage(msg.from.id, 'Scrivimi /treno <numero treno> Es: /treno 2285');
   }else{
     return getRitardo(msg);
   }
@@ -186,9 +186,9 @@ function saveLanguagePreference(msg, lang){
     console.log('Save language preference error');
   });
   if(lang === 'eng'){
-    bot.sendMessage('Thanx your languages settings have been saved successfully ;)');
+    bot.sendMessage(msg.from.id,'Thanx your languages settings have been saved successfully ;)');
   }else if(lang === 'ita'){
-    bot.sendMessage('Grazie, le tue preferenze di linguaggio sono state salvate!');
+    bot.sendMessage(msg.from.id,'Grazie, le tue preferenze di linguaggio sono state salvate!');
   }
 
 }
