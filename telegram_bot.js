@@ -113,10 +113,17 @@ function getRitardo(msg){
                                 try {
                                         var bodyJSON = JSON.parse(body);
                                         var ritardo = '';
-                                        ritardo = bodyJSON.compRitardo[0];
+                                        if(getLanguagePref(msg) === 'en'){
+                                              ritardo = bodyJSON.compRitardo[1];
+                                        }else if(getLanguagePref(msg) === 'it'){
+                                              ritardo = bodyJSON.compRitardo[0];
+                                        }
+
                                         //var gif = getGifByRitardo(ritardo);
                                         var messaggio = '';
                                         var doveSiTrovaAdesso = bodyJSON.stazioneUltimoRilevamento;
+                                        
+
                                         if(ritardo.toLowerCase().indexOf('orario') != -1){
                                           messaggio = messaggio + emoji.emojify(':green_heart:');
                                         }else if (ritardo.toLowerCase().indexOf('ritardo') != -1) {
