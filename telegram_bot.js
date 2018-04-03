@@ -149,13 +149,17 @@ function displayFeedRSS(msg_from_id){
 }
 
 function lastSeen(msg){
-
+try{
   var ref = firebase.app().database().ref('/ritardi/' + msg.from.id);
   if(ref){
     ref.orderByChild("timestamp").on("value", function(snapshot) {
        console.log(snapshot.key + " last seen on " + snapshot.val().when);
-    });    
+    });
   }
+}catch(error){
+  console.error("Error retrieving data");
+}
+
 
 
 }
