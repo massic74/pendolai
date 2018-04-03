@@ -187,7 +187,7 @@ function saveLanguagePreference(msg, lang){
   }else if(lang === 'ita'){
     langPref = 'it'
   }
-  firebase.app().database().ref('/ritardi/').child(msg.from.id).set({
+  firebase.app().database().ref('/ritardi/').child(msg.from.id).update({
     userID: msg.from.id,
     lang: langPref
   }).then(function() {
