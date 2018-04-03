@@ -38,7 +38,8 @@ bot.start();
 bot.on('text', msg => {
     let numeroTreno = msg.text;
 
-  //  sendAnalytics(msg.chat.id,numeroTreno, 'user', 'handled');
+    // welcome message 
+    lastSeen(msg);
 
     let promise;
     console.log(`messaggio dall'utente: ${ numeroTreno }`);
@@ -101,6 +102,8 @@ bot.on('text', msg => {
                                             messaggio = messaggio + emoji.emojify(':green_heart:');
                                           }else if (ritardo.toLowerCase().indexOf('ritardo') != -1) {
                                               messaggio = messaggio + emoji.emojify(':red_circle:');
+                                          }else if (ritardo.toLowerCase().indexOf('anticipo') != -1) {
+                                              messaggio = messaggio + emoji.emojify(':champagne:');
                                           }else{
                                               messaggio = messaggio;
                                           }
@@ -143,6 +146,15 @@ function displayFeedRSS(msg_from_id){
        bot.sendMessage(msg_from_id, item.title + ':' + item.link);
     });
   })();
+}
+
+function lastSeen(msg){
+
+  var ref = firebase.app().database().ref('/ritardi/' + msg.from.id);
+  ref.orderByChild("timestamp").on("value", function(snapshot) {
+     console.log(snapshot.key + " last seen on " + snapshot.val().when);
+  });
+
 }
 
 function saveMessage(msg,ritardo) {
