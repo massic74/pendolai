@@ -9,6 +9,7 @@ const TeleBot = require('telebot');
 const token = process.env.bot_token;
 const PORT = process.env.PORT || 5000
 let Parser = require('rss-parser');
+var emoji = require('node-emoji')
 
 const bot = new TeleBot({
     token: token
@@ -55,6 +56,9 @@ bot.on('text', msg => {
     }else if (numeroTreno.toLowerCase().indexOf('trenitalia') != -1) {
               bot.sendMessage(msg.from.id, 'Non nominare Trenitalia invano :D');
           //      sendAnalytics(msg.chat.id,'Non nominare Trenitalia invano :D', 'agent', 'handled');
+    }else if (numeroTreno.toLowerCase().indexOf('/start') != -1) {
+              bot.sendMessage(msg.from.id, 'Benvenuto su @pendolarichefannoilbot le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno \n - Avvisi');
+          //      sendAnalytics(msg.chat.id,'Non nominare Trenitalia invano :D', 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('avvisi') != -1) {
               displayFeedRSS(msg.from.id)
     }else if (numeroTreno.toLowerCase().indexOf('help') != -1) {
@@ -91,10 +95,18 @@ bot.on('text', msg => {
                                           var ritardo = '';
                                           ritardo = bodyJSON.compRitardo[0];
                                           //var gif = getGifByRitardo(ritardo);
+                                          var messaggio = '';
                                           var doveSiTrovaAdesso = bodyJSON.stazioneUltimoRilevamento;
-                                        //  console.log('ritardo ......', response);
-                                          var messaggio = 'Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
-
+                                          if(ritardo.toLowerCase().indexOf('orario') != -1){
+                                            messaggio = messaggio + emoji.emojify(':green_heart:');
+                                          }else if (ritardo.toLowerCase().indexOf('ritardo') != -1) {
+                                              messaggio = messaggio + emoji.emojify(':red_circle:');
+                                          }else{
+                                              messaggio = messaggio;
+                                          }
+                                          messaggio = ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
+                                          //red_circle
+                                          //green_heart
                                           //bot.sendMessage(msg.from.id, 'Ciao non ti si vede dal: ' + lastSeen(msg));
                                           bot.sendMessage(msg.from.id, messaggio);
                                     //      sendAnalytics(msg.chat.id,messaggio, 'agent', 'handled');
