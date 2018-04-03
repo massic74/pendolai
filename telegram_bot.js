@@ -210,7 +210,7 @@ function saveMessage(msg,ritardo) {
   var timestamp = (new Date()).getTime();
   var d = new Date(timestamp);
 
-  firebase.app().database().ref('/ritardi/').on(‘child_added’, function (snap) {
+  firebase.app().database().ref('/ritardi/').on('child_added', function (snap) {
      bot.sendMessage('355288686', 'Nuovo utente!');
   });
 
