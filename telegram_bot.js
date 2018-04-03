@@ -36,7 +36,7 @@ bot.start();
 bot.on(['/start'], msg => {
 
     let replyMarkup = bot.keyboard([
-        ['/italian', '/english', '/treno', 'whois', 'news']
+        ['/italian', '/english', '/treno', '/whois', '/news']
     ], {resize: true});
 
     return bot.sendMessage(msg.from.id, 'Welcome to @pendolarichefannoilbot: set your language preferences | Benvenuto in @pendolarichefannoilbot scegli la tua lingua', {replyMarkup});
@@ -77,7 +77,7 @@ bot.on('/news', msg => {
 
 function getRitardo(msg){
   let numeroTreno = msg.text;
-
+  numeroTreno = numeroTreno.replace('/treno ','');
   let promise;
   console.log(`messaggio dall'utente: ${ numeroTreno }`);
   var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
