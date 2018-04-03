@@ -147,7 +147,7 @@ function saveMessage(msg,ritardo) {
     console.log('Save successful');
   }).catch(function(error) {
     console.log('Save error');
-  });;
+  });
 }
 
 function sendGifByRitardo(ritardo, chatid){
@@ -172,7 +172,9 @@ function sendGifByRitardo(ritardo, chatid){
       //console.log(uricemia);
       request({ uri: uricemia}, function(err, response, body){
 
-      })
+      }).catch(function(error) {
+            console.log('Gif error' + error);
+      });
   })
 }
 
