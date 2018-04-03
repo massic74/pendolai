@@ -135,19 +135,9 @@ function displayFeedRSS(msg_from_id){
 
 function saveMessage(msg,ritardo) {
   var timestamp = (new Date()).getTime();
-
-  firebase.app().database().ref('/ritardi/').child(msg.from.id).push({
-    userID: msg.from.id,
-    trainID: msg.text,
-    ritardo: ritardo,
-    timestamp: timestamp
-  }).then(function() {
-    console.log('Save successful');
-  }).catch(function(error) {
-    console.log('Save error');
-  });;
-}
-
+  var d = new Date(timestamp);
+  console.log('When: '+ d.toString());
+  
 function sendGifByRitardo(ritardo, chatid){
   var giphyKey = process.env.giphy_key;
   //let sender = event.sender.id;
