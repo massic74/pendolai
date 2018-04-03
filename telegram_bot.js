@@ -38,7 +38,8 @@ bot.on(['/start'], msg => {
     let replyMarkup = bot.keyboard([
         ['/italian', '/english', '/treno', '/whois', '/news']
     ], {resize: true});
-
+    //default language italian
+    saveLanguagePreference(msg, 'ita');
     return bot.sendMessage(msg.from.id, 'Welcome to @pendolarichefannoilbot: set your language preferences | Benvenuto in @pendolarichefannoilbot scegli la tua lingua', {replyMarkup});
 
 });
@@ -56,7 +57,12 @@ bot.on('/english', msg => {
 bot.on('/treno', msg => {
 
   if(msg.text === '/treno'){
-    return bot.sendMessage(msg.from.id, 'Scrivimi /treno <numero treno> Es: /treno 2285');
+    if(getLanguagePref(msg) === 'it'){
+      return bot.sendMessage(msg.from.id, 'Scrivimi /treno <numero treno> Es: /treno 2285');
+    }else if(getLanguagePref(msg) === 'en'){
+      return bot.sendMessage(msg.from.id, 'Type /treno <train number> e.g: /treno 2285');
+    }
+
   }else{
     return getRitardo(msg);
   }
@@ -79,7 +85,7 @@ function getRitardo(msg){
   let numeroTreno = msg.text;
   numeroTreno = numeroTreno.replace('/treno ','');
   let promise;
-  console.log(`messaggio dall'utente: ${ numeroTreno }`);
+  //console.log(`messaggio dall'utente: ${ numeroTreno }`);
   var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
   const answers = bot.answerList(msg.id, {cacheTime: 60});
 
@@ -91,8 +97,10 @@ function getRitardo(msg){
                       risposta = 'Sei sicuro di aver inserito un numero di treno valido?? \n' +
                                 ' Ricorda che puoi chiedermi a che punto sta il tuo treno semplicemente chattandomi il numero del treno! \n' +
                                 ' Digita help per sapere altre cosucce che puoi chiedermi! Enjoy ;)';
-                                              bot.sendMessage(msg.from.id, risposta);
-                                        //      sendAnalytics(msg.chat.id,risposta, 'agent', 'handled');
+                      if(getLanguagePref(msg) === 'en'){
+                        risposta = 'Are you sure that you typed a valid train ID?'
+                      }
+                      bot.sendMessage(msg.from.id, risposta);
                     } else{
                     try{
                         stazione = body.toString();
@@ -117,7 +125,12 @@ function getRitardo(msg){
                                         }else{
                                             messaggio = messaggio;
                                         }
-                                        messaggio = messaggio + ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
+                                        if(getLanguagePref(msg) === 'en'){
+                                              messaggio = messaggio + ' Hello, this is your train status: ' + numeroTreno + ' is :' + ritardo + ' Last time was seen at:  ' + doveSiTrovaAdesso;                                          
+                                        }else if(getLanguagePref(msg) === 'it'){
+                                              messaggio = messaggio + ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
+                                        }
+
 
                                         bot.sendMessage(msg.from.id, messaggio);
 
@@ -154,20 +167,21 @@ function displayFeedRSS(msg_from_id){
   })();
 }
 
-function lastSeen(msg){
-try{
-  var ref = firebase.app().database().ref('/ritardi/' + msg.from.id);
-  if(ref){
-    ref.orderByChild("timestamp").on("value", function(snapshot) {
-       console.log(snapshot.key + " last seen on " + snapshot.val().when);
-    });
-  }
-}catch(error){
-  console.error("Error retrieving data");
-}
-
-
-
+//it or en
+function getLanguagePref(msg){
+    var language = 'it';
+    try{
+      var ref = firebase.app().database().ref('/ritardi/' + msg.from.id);
+      if(ref){
+        ref.orderByChild("timestamp").on("value", function(snapshot) {
+          // console.log(snapshot.key + " last seen on " + snapshot.val().lang);
+          language = snapshot.val().lang;
+        });
+      }
+    }catch(error){
+      console.error("Error retrieving data");
+    }
+    return language;
 }
 
 function saveLanguagePreference(msg, lang){
