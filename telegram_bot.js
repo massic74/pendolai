@@ -45,12 +45,12 @@ bot.on(['/start'], msg => {
 
 bot.on('/italian', msg => {
     return saveLanguagePreference(msg, 'ita');
-    );
+
 });
 bot.on('/english', msg => {
     return bot.sendMessage(
       return saveLanguagePreference(msg, 'eng');
-    );
+    
 });
 
 bot.on('text', msg => {
