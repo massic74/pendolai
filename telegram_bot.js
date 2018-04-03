@@ -33,7 +33,25 @@ app.post('/webook/telegram_', function (req, res) {
 bot.start();
 
 
-/* ########### */
+bot.on(['/start'], msg => {
+
+    let replyMarkup = bot.keyboard([
+        ['/italian', '/english']
+    ], {resize: true});
+
+    return bot.sendMessage(msg.from.id, 'Welcome to @pendolarichefannoilbot: set your language preferences | Benvenuto in @pendolarichefannoilbot scegli la tua lingua', {replyMarkup});
+
+});
+
+bot.on('/italian', msg => {
+    return saveLanguagePreference(msg, 'ita');
+    );
+});
+bot.on('/english', msg => {
+    return bot.sendMessage(
+      return saveLanguagePreference(msg, 'eng');
+    );
+});
 
 bot.on('text', msg => {
     let numeroTreno = msg.text;
@@ -53,9 +71,6 @@ bot.on('text', msg => {
 
     }else if (numeroTreno.toLowerCase().indexOf('trenitalia') != -1) {
               bot.sendMessage(msg.from.id, 'Non nominare Trenitalia invano :D');
-          //      sendAnalytics(msg.chat.id,'Non nominare Trenitalia invano :D', 'agent', 'handled');
-    }else if (numeroTreno.toLowerCase().indexOf('/start') != -1) {
-              bot.sendMessage(msg.from.id, 'Benvenuto su @pendolarichefannoilbot le cose che mi puoi chiedere sono le seguenti: \n  - Chi sei? \n  - Come ti chiami? \n - Help \n - scrivimi il numero del tuo treno \n - Avvisi');
           //      sendAnalytics(msg.chat.id,'Non nominare Trenitalia invano :D', 'agent', 'handled');
     }else if (numeroTreno.toLowerCase().indexOf('avvisi') != -1) {
               displayFeedRSS(msg.from.id)
@@ -161,6 +176,23 @@ try{
 
 
 
+}
+
+function saveLanguagePreference(msg, lang){
+  var langPref= '';
+  if(lang === 'eng'){
+    langPref = 'en';
+  }else if(lang === 'ita'){
+    langPref = 'it'
+  }
+  firebase.app().database().ref('/ritardi/').child(msg.from.id).set({
+    userID: msg.from.id,
+    lang: langPref;
+  }).then(function() {
+    console.log('Save language preference successful');
+  }).catch(function(error) {
+    console.log('Save language preference error');
+  });
 }
 
 function saveMessage(msg,ritardo) {
