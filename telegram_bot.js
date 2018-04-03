@@ -104,7 +104,7 @@ bot.on('text', msg => {
                                           }else{
                                               messaggio = messaggio;
                                           }
-                                          messaggio = ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
+                                          messaggio = messaggio + ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
                                           //red_circle
                                           //green_heart
                                           //bot.sendMessage(msg.from.id, 'Ciao non ti si vede dal: ' + lastSeen(msg));
