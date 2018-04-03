@@ -38,9 +38,6 @@ bot.start();
 bot.on('text', msg => {
     let numeroTreno = msg.text;
 
-    // welcome message
-    lastSeen(msg);
-
     let promise;
     console.log(`messaggio dall'utente: ${ numeroTreno }`);
     var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
@@ -115,6 +112,8 @@ bot.on('text', msg => {
                                     //      sendAnalytics(msg.chat.id,messaggio, 'agent', 'handled');
                                           sendGifByRitardo(ritardo, msg.chat.id);
                                           saveMessage(msg,ritardo);
+                                          // welcome message
+                                          lastSeen(msg);
                                     } catch (e) {
                                        bot.sendMessage(msg.from.id, risposta);
                                 //       sendAnalytics(msg.chat.id,messaggio, 'agent', 'not_handled');
