@@ -136,13 +136,14 @@ function displayFeedRSS(msg_from_id){
 function saveMessage(msg,ritardo) {
   var timestamp = (new Date()).getTime();
   var d = new Date(1382086394000);
-  console.log('When: ' +  d.toString());
+//  console.log('When: ' +  d.toString());
 
   firebase.app().database().ref('/ritardi/').child(msg.from.id).push({
     userID: msg.from.id,
     trainID: msg.text,
     ritardo: ritardo,
-    timestamp: timestamp
+    timestamp: timestamp,
+    when: d.toString()
   }).then(function() {
     console.log('Save successful');
   }).catch(function(error) {
@@ -172,9 +173,7 @@ function sendGifByRitardo(ritardo, chatid){
       //console.log(uricemia);
       request({ uri: uricemia}, function(err, response, body){
 
-      }).catch(function(error) {
-            console.log('Gif error' + error);
-      });
+      })
   })
 }
 
