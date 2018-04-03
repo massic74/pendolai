@@ -38,7 +38,7 @@ bot.start();
 bot.on('text', msg => {
     let numeroTreno = msg.text;
 
-    // welcome message 
+    // welcome message
     lastSeen(msg);
 
     let promise;
@@ -160,9 +160,9 @@ function lastSeen(msg){
 function saveMessage(msg,ritardo) {
   var timestamp = (new Date()).getTime();
   var d = new Date(timestamp);
-//  console.log('When: ' +  d.toString());
 
-  firebase.app().database().ref('/ritardi/').child(msg.from.id).push({
+
+  firebase.app().database().ref('/ritardi/').child(msg.from.id).set({
     userID: msg.from.id,
     trainID: msg.text,
     ritardo: ritardo,
