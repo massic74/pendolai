@@ -126,7 +126,7 @@ function getRitardo(msg){
                                             messaggio = messaggio;
                                         }
                                         if(getLanguagePref(msg) === 'en'){
-                                              messaggio = messaggio + ' Hello, this is your train status: ' + numeroTreno + ' is :' + ritardo + ' Last time was seen at:  ' + doveSiTrovaAdesso;                                          
+                                              messaggio = messaggio + ' Hello, this is your train status: ' + numeroTreno + ' is :' + ritardo + ' Last time was seen at:  ' + doveSiTrovaAdesso;
                                         }else if(getLanguagePref(msg) === 'it'){
                                               messaggio = messaggio + ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
                                         }
@@ -137,7 +137,7 @@ function getRitardo(msg){
                                         sendGifByRitardo(ritardo, msg.chat.id);
                                         saveMessage(msg,ritardo);
 
-                                        lastSeen(msg);
+                                        
                                   } catch (e) {
                                      bot.sendMessage(msg.from.id, risposta);
 
