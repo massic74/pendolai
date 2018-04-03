@@ -61,7 +61,7 @@ bot.on('text', msg => {
     var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
     const answers = bot.answerList(msg.id, {cacheTime: 60});
 
-  if(!numeroTreno.toLowerCase().indexOf('/italian') != -1 && !numeroTreno.toLowerCase().indexOf('/english') != -1 || ){
+  if(!numeroTreno.toLowerCase().indexOf('/italian') != -1 && !numeroTreno.toLowerCase().indexOf('/english') != -1){
 
     if(numeroTreno.toLowerCase().indexOf('ciao') != -1){
             var testo = 'Ciao anche a te, sono il primo ChatBot per treni sviluppato interamente a bordo di un treno :)) \n ' +
