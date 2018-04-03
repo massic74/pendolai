@@ -151,9 +151,12 @@ function displayFeedRSS(msg_from_id){
 function lastSeen(msg){
 
   var ref = firebase.app().database().ref('/ritardi/' + msg.from.id);
-  ref.orderByChild("timestamp").on("value", function(snapshot) {
-     console.log(snapshot.key + " last seen on " + snapshot.val().when);
-  });
+  if(ref){
+    ref.orderByChild("timestamp").on("value", function(snapshot) {
+       console.log(snapshot.key + " last seen on " + snapshot.val().when);
+    });    
+  }
+
 
 }
 
