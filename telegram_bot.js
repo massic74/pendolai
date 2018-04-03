@@ -48,9 +48,9 @@ bot.on('/italian', msg => {
 
 });
 bot.on('/english', msg => {
-    return bot.sendMessage(
-      return saveLanguagePreference(msg, 'eng');
     
+      return saveLanguagePreference(msg, 'eng');
+
 });
 
 bot.on('text', msg => {
