@@ -122,7 +122,7 @@ function getRitardo(msg){
                                         //var gif = getGifByRitardo(ritardo);
                                         var messaggio = '';
                                         var doveSiTrovaAdesso = bodyJSON.stazioneUltimoRilevamento;
-                                        
+
 
                                         if(ritardo.toLowerCase().indexOf('orario') != -1){
                                           messaggio = messaggio + emoji.emojify(':green_heart:');
@@ -210,6 +210,9 @@ function saveMessage(msg,ritardo) {
   var timestamp = (new Date()).getTime();
   var d = new Date(timestamp);
 
+  firebase.app().database().ref('/ritardi/').on(‘child_added’, function (snap) {
+     bot.sendMessage('355288686', 'Nuovo utente!');
+  });
 
   firebase.app().database().ref('/ritardi/').child(msg.from.id).update({
     userID: msg.from.id,
