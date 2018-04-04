@@ -42,7 +42,7 @@ bot.on('text', msg => {
 bot.on(['/start'], msg => {
 
     let replyMarkup = bot.keyboard([
-        ['/italian', '/english', '/treno', '/whois', '/news', '/panorama']
+        ['/italian'], ['/english'], ['/treno'], ['/whois'], ['/news'], ['/panorama']
     ], {resize: true});
     //default language italian
     saveLanguagePreference(msg, 'ita');
@@ -93,9 +93,9 @@ bot.on('photo', msg => {
         bot.sendMessage('355288686', picFile + ' dall\' utente ' + username + ' - ' + firstName + ' ' + lastName);
     })
     if(getLanguagePref(msg) === 'it'){
-        return bot.sendMessage(msg.from.id, 'Grazie per la foto, verrà valutata e la migliore sarà pubblicata sulla pagina Facebook ufficiale!');
+        return bot.sendMessage(msg.from.id, 'Grazie per la foto, verrà valutata e la migliore sarà pubblicata sulla pagina Facebook ufficiale: https://www.facebook.com/pendolariconilbot/');
     }else if(getLanguagePref(msg) === 'en'){
-        return bot.sendMessage(msg.from.id, 'Thanx for the pic, will be reviewed and the best ones will be pubished on the official chatbot\'s Facebook page');
+        return bot.sendMessage(msg.from.id, 'Thanx for the pic, will be reviewed and the best ones will be pubished on the official chatbot\'s Facebook page: https://www.facebook.com/pendolariconilbot/');
     }
 
 
