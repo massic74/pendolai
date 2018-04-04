@@ -34,7 +34,7 @@ bot.start();
 
 bot.on('text', msg => {
   if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != 'treno' ){
-    return getRitardo(msg);    
+    return getRitardo(msg);
   }
 
 });
@@ -42,7 +42,7 @@ bot.on('text', msg => {
 bot.on(['/start'], msg => {
 
     let replyMarkup = bot.keyboard([
-        ['/italian', '/english', '/treno', '/whois', '/news']
+        ['/italian', '/english', 'treno', '/whois', '/news']
     ], {resize: true});
     //default language italian
     saveLanguagePreference(msg, 'ita');
