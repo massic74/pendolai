@@ -33,7 +33,7 @@ app.post('/webook/telegram_', function (req, res) {
 bot.start();
 
 bot.on('text', msg => {
-  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' ){
+  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno', && msg.text != '/panorama' ){
     return getRitardo(msg);
   }
 
@@ -42,7 +42,7 @@ bot.on('text', msg => {
 bot.on(['/start'], msg => {
 
     let replyMarkup = bot.keyboard([
-        ['/italian', '/english', '/treno', '/whois', '/news']
+        ['/italian', '/english', '/treno', '/whois', '/news', '/panorama']
     ], {resize: true});
     //default language italian
     saveLanguagePreference(msg, 'ita');
@@ -67,6 +67,21 @@ bot.on('/treno', msg => {
     }else if(getLanguagePref(msg) === 'en'){
       return bot.sendMessage(msg.from.id, 'Type your train number. (e.g. 2285)');
     }
+});
+
+bot.on('/panorama', msg => {
+    if(getLanguagePref(msg) === 'it'){
+      return bot.sendMessage(msg.from.id, 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!');
+    }else if(getLanguagePref(msg) === 'en'){
+      return bot.sendMessage(msg.from.id, 'Your train is stuck in the middle of nowhere? Take a shot a send the pic to the chatbot. The best pictured will be published on the official Facebook page. ');
+    }
+});
+
+bot.on('photo', msg => {
+
+    console.log('Foto: ' + msg.photo[0].file_id)
+    //  return bot.sendMessage(msg.from.id, 'Massic -> https://twitter.com/massic');
+
 });
 
 bot.on('/whois', msg => {
