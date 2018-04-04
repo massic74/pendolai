@@ -86,9 +86,18 @@ bot.on('photo', msg => {
         var bodyJSON = JSON.parse(body);
         var filePath = bodyJSON.result.file_path;
         picFile = 'https://api.telegram.org/file/bot'+token + /photos/ + filePath;
-    })
+        var username = msg.from.username;
+        var firstName = msg.from.first_name;
+        var lastName = msg.from.last_name;
 
-    return bot.sendMessage('355288686', picFile + ' dall\' utente' + msg.from.username + ' - ' + msg.from.first_name + ' ' + msg.from.last_name);
+        bot.sendMessage('355288686', picFile + ' dall\' utente ' + username + ' - ' + firstName + ' ' + lastName);
+    })
+    if(getLanguagePref(msg) === 'it'){
+        return bot.sendMessage(msg.from.id, 'Grazie per la foto, verrà valutata e la migliore sarà pubblicata sulla pagina Facebook ufficiale!');
+    }else if(getLanguagePref(msg) === 'en'){
+        return bot.sendMessage(msg.from.id, 'Thanx for the pic, will be reviewed and the best ones will be pubished on the official chatbot\'s Facebook page');
+    }
+
 
 });
 
