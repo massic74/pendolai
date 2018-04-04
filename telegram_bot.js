@@ -33,7 +33,7 @@ app.post('/webook/telegram_', function (req, res) {
 bot.start();
 
 bot.on('text', msg => {
-  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno', && msg.text != '/panorama' ){
+  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' ){
     return getRitardo(msg);
   }
 
