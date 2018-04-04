@@ -79,8 +79,8 @@ bot.on('/panorama', msg => {
 
 bot.on('photo', msg => {
     var picFile = '';
-    console.log('Foto: ' + msg.photo[0].file_id)
-    var fotoGetPath = 'https://api.telegram.org/bot'+ token +'/getFile?file_id=' + msg.photo[0].file_id;
+    console.log('Foto: ' + msg.photo[2].file_id)
+    var fotoGetPath = 'https://api.telegram.org/bot'+ token +'/getFile?file_id=' + msg.photo[2].file_id;
     //console.log(uricemia);
     request({ uri: fotoGetPath}, function(err, response, body){
         var bodyJSON = JSON.parse(body);
