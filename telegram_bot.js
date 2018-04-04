@@ -79,7 +79,7 @@ bot.on('/panorama', msg => {
 
 bot.on('photo', msg => {
 
-    console.log('Foto: ' + msg.photo[0].file_id)
+    console.log('Foto: ' + msg.photo[0].file_path)
     //  return bot.sendMessage(msg.from.id, 'Massic -> https://twitter.com/massic');
 
 });
