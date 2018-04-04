@@ -33,7 +33,10 @@ app.post('/webook/telegram_', function (req, res) {
 bot.start();
 
 bot.on('text', msg => {
-    return getRitardo(msg);
+  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != 'treno' ){
+    return getRitardo(msg);    
+  }
+
 });
 
 bot.on(['/start'], msg => {
@@ -204,11 +207,11 @@ function saveLanguagePreference(msg, lang){
 function saveMessage(msg,ritardo) {
   var timestamp = (new Date()).getTime();
   var d = new Date(timestamp);
-
+/*
   firebase.app().database().ref('/ritardi/').on('child_added', function (snap) {
      bot.sendMessage('355288686', 'Nuovo utente!');
   });
-
+*/
   firebase.app().database().ref('/ritardi/').child(msg.from.id).update({
     userID: msg.from.id,
     trainID: msg.text,
