@@ -52,8 +52,9 @@ bot.on(['/start'], msg => {
 
 bot.on(['/feedback'], msg => {
 
-      let replyMarkup = bot.keyboard([
-          [bot.button('feedback', 'Lasciaci un feedback')], {resize: true});
+  let replyMarkup = bot.keyboard([
+      [bot.button('feedback', 'feedback')]
+  ], {resize: true});
 
       return bot.sendMessage(msg.from.id, 'Lasciaci un feedback', {replyMarkup});
 
