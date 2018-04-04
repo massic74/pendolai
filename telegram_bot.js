@@ -33,7 +33,7 @@ app.post('/webook/telegram_', function (req, res) {
 bot.start();
 
 bot.on('text', msg => {
-  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != 'treno' ){
+  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' ){
     return getRitardo(msg);
   }
 
@@ -61,7 +61,7 @@ bot.on('/english', msg => {
       return bot.sendMessage(msg.from.id,'Thanx your languages settings have been saved successfully ;)');
 });
 
-bot.on('treno', msg => {
+bot.on('/treno', msg => {
     if(getLanguagePref(msg) === 'it'){
       return bot.sendMessage(msg.from.id, 'Digita il numero del tuo treno. (es: 2285)');
     }else if(getLanguagePref(msg) === 'en'){
