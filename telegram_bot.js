@@ -32,6 +32,9 @@ app.post('/webook/telegram_', function (req, res) {
 //bot.on('text', msg => bot.sendMessage(msg.from.id, msg.text + 'bomber'));
 bot.start();
 
+bot.on('text', msg => {
+    return getRitardo(msg);
+});
 
 bot.on(['/start'], msg => {
 
@@ -55,22 +58,14 @@ bot.on('/english', msg => {
       return bot.sendMessage(msg.from.id,'Thanx your languages settings have been saved successfully ;)');
 });
 
-bot.on('/treno', msg => {
-
-  if(msg.text === '/treno'){
+bot.on('treno', msg => {
     if(getLanguagePref(msg) === 'it'){
-      return bot.sendMessage(msg.from.id, 'Scrivimi /treno <numero treno> Es: /treno 2285');
+      return bot.sendMessage(msg.from.id, 'Digita il numero del tuo treno. (es: 2285)');
     }else if(getLanguagePref(msg) === 'en'){
-      return bot.sendMessage(msg.from.id, 'Type /treno <train number> e.g: /treno 2285');
+      return bot.sendMessage(msg.from.id, 'Type your train number. (e.g. 2285)');
     }
-
-  }else{
-    return getRitardo(msg);
-  }
-
-
-
 });
+
 bot.on('/whois', msg => {
 
       return bot.sendMessage(msg.from.id, 'Massic -> https://twitter.com/massic');
