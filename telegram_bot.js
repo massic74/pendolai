@@ -85,7 +85,7 @@ bot.on('photo', msg => {
     request({ uri: fotoGetPath}, function(err, response, body){
         var bodyJSON = JSON.parse(body);
         var filePath = bodyJSON.result.file_path;
-        picFile = 'https://api.telegram.org/file/bot'+token + /photos/ + filePath;
+        picFile = 'https://api.telegram.org/file/bot'+token + '/' + filePath;
         var username = msg.from.username;
         var firstName = msg.from.first_name;
         var lastName = msg.from.last_name;
