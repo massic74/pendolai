@@ -42,7 +42,7 @@ bot.on('text', msg => {
 bot.on(['/start'], msg => {
 
     let replyMarkup = bot.keyboard([
-        ['/italian'], ['/english'], ['/treno'], ['/whois'], ['/news'], ['/panorama']
+      ['/treno'],['/panorama'],['/news'],['/italian'],['/english'],['/whois']
     ], {resize: true});
     //default language italian
     saveLanguagePreference(msg, 'ita');
