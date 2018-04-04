@@ -42,26 +42,12 @@ bot.on('text', msg => {
 bot.on(['/start'], msg => {
 
     let replyMarkup = bot.keyboard([
-        ['/italian', '/english', '/treno', '/whois', '/news', '/feedback']
+        ['/italian', '/english', '/treno', '/whois', '/news']
     ], {resize: true});
     //default language italian
     saveLanguagePreference(msg, 'ita');
     return bot.sendMessage(msg.from.id, 'Benvenuto in @pendolarichefannoilbot: sotto trovi i comandi che al momento sono in grado di eseguire. Lingua di default impostata a italiano', {replyMarkup});
 
-});
-
-bot.on(['/feedback'], msg => {
-
-  let replyMarkup = bot.keyboard([
-      [bot.button('feedback', 'feedback')]
-  ], {resize: true});
-
-      return bot.sendMessage(msg.from.id, 'Lasciaci un feedback', {replyMarkup});
-
-});
-
-bot.on(['feedback'], (msg, self) => {
-    return bot.sendMessage(msg.from.id, `Thank you for ${ self.type }.`);
 });
 
 bot.on('/italian', msg => {
