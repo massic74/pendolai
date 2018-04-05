@@ -103,7 +103,12 @@ bot.on('photo', msg => {
 
 bot.on('/whois', msg => {
 
-      return bot.sendMessage(msg.from.id, 'Massic -> https://twitter.com/massic');
+      if(msg.chat.type === 'channel'){
+          return bot.sendMessage(msg.chat.id, 'Massic -> https://twitter.com/massic');
+      }else{
+        return bot.sendMessage(msg.from.id, 'Massic -> https://twitter.com/massic');
+      }
+
 
 });
 bot.on('/news', msg => {
