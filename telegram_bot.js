@@ -152,8 +152,7 @@ function getRitardo(msg){
                                         //var gif = getGifByRitardo(ritardo);
                                         var messaggio = '';
                                         var doveSiTrovaAdesso = bodyJSON.stazioneUltimoRilevamento;
-
-
+                                        var doveSiTrovaAdessoText = '';
                                         if(ritardo.toLowerCase().indexOf('orario') != -1){
                                           messaggio = messaggio + emoji.emojify(':green_heart:');
                                         }else if (ritardo.toLowerCase().indexOf('ritardo') != -1) {
@@ -164,9 +163,19 @@ function getRitardo(msg){
                                             messaggio = messaggio;
                                         }
                                         if(getLanguagePref(msg) === 'en'){
-                                              messaggio = messaggio + ' Hello, this is your train status: ' + numeroTreno + ' is :' + ritardo + ' Last time was seen at:  ' + doveSiTrovaAdesso;
+                                          if(doveSiTrovaAdesso === '--'){
+                                            doveSiTrovaAdessoText = ' Train not started yet!'
+                                          }else{
+                                              doveSiTrovaAdessoText = ' Last time was seen at:  ' + doveSiTrovaAdesso
+                                          }
+                                              messaggio = messaggio + ' Hello, this is your train status: ' + numeroTreno + ' is :' + ritardo + doveSiTrovaAdessoText;
                                         }else if(getLanguagePref(msg) === 'it'){
-                                              messaggio = messaggio + ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + ' L\' ultima volta è stato avvistato alla stazione di ' + doveSiTrovaAdesso;
+                                          if(doveSiTrovaAdesso === '--'){
+                                            doveSiTrovaAdessoText = ' Treno non ancora partito!'
+                                          }else{
+                                              doveSiTrovaAdessoText = ' L \' ultima volta è stato visto alla stazione di: ' + doveSiTrovaAdesso
+                                          }
+                                              messaggio = messaggio + ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + doveSiTrovaAdessoText;
                                         }
                                         bot.sendMessage(msg.from.id, messaggio);
                                         sendGifByRitardo(ritardo, msg.chat.id);
