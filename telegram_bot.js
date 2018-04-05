@@ -39,6 +39,13 @@ bot.on('text', msg => {
 
 });
 
+
+bot.on(['new_chat_members'], msg => {
+
+    return bot.sendMessage(msg.chat.id, 'Benvenuto in @pendolaripiacenza! Manda un messaggio al chatbot @pendolarichefannoilbot per avere info e assistenza sul tuo treno. ');
+
+});
+
 bot.on(['/start'], msg => {
 
     let replyMarkup = bot.keyboard([
