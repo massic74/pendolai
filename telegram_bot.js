@@ -118,6 +118,9 @@ function getRitardo(msg){
   let promise;
   //console.log(`messaggio dall'utente: ${ numeroTreno }`);
   var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
+  if(getLanguagePref(msg) === 'en'){
+    risposta = 'I\'m sorry, didn\'t get your question, or more likely the train number that you provided was wrong. Sorry for the inconvenience!'
+  }
   const answers = bot.answerList(msg.id, {cacheTime: 60});
 
   var uri1 = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/' + numeroTreno;
@@ -173,7 +176,7 @@ function getRitardo(msg){
                                           if(doveSiTrovaAdesso === '--'){
                                             doveSiTrovaAdessoText = ' Treno non ancora partito!'
                                           }else{
-                                              doveSiTrovaAdessoText = ' L \' ultima volta è stato visto alla stazione di: ' + doveSiTrovaAdesso
+                                              doveSiTrovaAdessoText = ' L\' ultima volta è stato visto alla stazione di: ' + doveSiTrovaAdesso
                                           }
                                               messaggio = messaggio + ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + doveSiTrovaAdessoText;
                                         }
