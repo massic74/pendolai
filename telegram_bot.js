@@ -51,7 +51,7 @@ bot.on(['/start'], msg => {
 
     let replyMarkup = bot.keyboard([
       ['/treno'],['/panorama'],['/news'],['/italian'],['/english'],['/whois']
-    ], {resize: true});
+    ], {resize: true},{one_time_keyboard: true});
     //default language italian
     saveLanguagePreference(msg, 'ita');
     return bot.sendMessage(msg.from.id, 'Benvenuto in @pendolarichefannoilbot: sotto trovi i comandi che al momento sono in grado di eseguire. Lingua di default impostata a italiano', {replyMarkup});
@@ -128,7 +128,7 @@ bot.on('/news', msg => {
 function getRitardo(msg){
   let numeroTreno = msg.text;
   numeroTreno = numeroTreno.replace('/treno ','');
-  let promise;
+
   //console.log(`messaggio dall'utente: ${ numeroTreno }`);
   var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
   if(getLanguagePref(msg) === 'en'){
@@ -216,19 +216,19 @@ function getRitardo(msg){
 
 function showRatingsForm(msg){
 
+
+
   let ratingsMarkup = bot.keyboard([
     [emoji.emojify(':hearts:')],
     [emoji.emojify(':hearts:'),emoji.emojify(':hearts:')],
     [emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:')],
     [emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:')],
     [emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:')]
-  ], {resize: true});
-  console.log('before');
+  ], {resize: true},{one_time_keyboard: true});
+
   if(getLanguagePref(msg) === 'it'){
-    console.log('it');
       return bot.sendMessage(msg.from.id, 'Facci sapere come è stata la tua esperienza con il bot, ci aiuterai a migliorarlo!', {ratingsMarkup});
   }else if(getLanguagePref(msg) === 'en'){
-    console.log('en');
       return bot.sendMessage(msg.from.id, 'Rate your experience with our chatbot, your feedback will be helpful!', {ratingsMarkup});
   }
 
