@@ -223,7 +223,7 @@ function showRatingsForm(msg){
     [emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:')],
     [emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:')]
   ], {resize: true});
-  console.console.log('before');
+  console.log('before');
   if(getLanguagePref(msg) === 'it'){
     console.log('it');
       return bot.sendMessage(msg.from.id, 'Facci sapere come è stata la tua esperienza con il bot, ci aiuterai a migliorarlo!', {ratingsMarkup});
