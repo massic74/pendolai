@@ -225,10 +225,10 @@ function showRatingsForm(msg){
   ], {resize: true});
   console.console.log('before');
   if(getLanguagePref(msg) === 'it'){
-    console.console.log('it');
+    console.log('it');
       return bot.sendMessage(msg.from.id, 'Facci sapere come è stata la tua esperienza con il bot, ci aiuterai a migliorarlo!', {ratingsMarkup});
   }else if(getLanguagePref(msg) === 'en'){
-    console.console.log('en');
+    console.log('en');
       return bot.sendMessage(msg.from.id, 'Rate your experience with our chatbot, your feedback will be helpful!', {ratingsMarkup});
   }
 
