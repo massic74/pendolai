@@ -324,7 +324,7 @@ function sendGifByRitardo(ritardo, msg){
       var uricemia = 'https://api.telegram.org/bot'+ token +'/sendVideo?chat_id=' + msg.chat.id + '&video=' + giff;
       //console.log(uricemia);
       request({ uri: uricemia}, function(err, response, body){
-          showRatingsForm(msg);
+          //showRatingsForm(msg);
       })
   })
 }
