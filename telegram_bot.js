@@ -194,7 +194,7 @@ function getRitardo(msg){
                                               messaggio = messaggio + ' Ciao la situazione del tuo treno: ' + numeroTreno + ' è :' + ritardo + doveSiTrovaAdessoText;
                                         }
                                         bot.sendMessage(msg.from.id, messaggio);
-                                        sendGifByRitardo(ritardo, msg.chat.id);
+                                        sendGifByRitardo(ritardo, msg);
                                         saveMessage(msg,ritardo);
 
                                   } catch (e) {
@@ -300,7 +300,7 @@ function saveMessage(msg,ritardo) {
   });
 }
 
-function sendGifByRitardo(ritardo, chatid){
+function sendGifByRitardo(ritardo, msg){
   var giphyKey = process.env.giphy_key;
   //let sender = event.sender.id;
   let tag = '';
@@ -318,7 +318,7 @@ function sendGifByRitardo(ritardo, chatid){
   request({ uri: uri}, function(err, response, body){
       var gifJSON = JSON.parse(body);
       var giff = gifJSON.data.images.original.url;
-      var uricemia = 'https://api.telegram.org/bot'+ token +'/sendVideo?chat_id=' + chatid + '&video=' + giff;
+      var uricemia = 'https://api.telegram.org/bot'+ token +'/sendVideo?chat_id=' + msg.chat.id + '&video=' + giff;
       //console.log(uricemia);
       request({ uri: uricemia}, function(err, response, body){
           showRatingsForm(msg);
