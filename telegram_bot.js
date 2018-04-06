@@ -196,6 +196,7 @@ function getRitardo(msg){
                                         bot.sendMessage(msg.from.id, messaggio);
                                         sendGifByRitardo(ritardo, msg.chat.id);
                                         saveMessage(msg,ritardo);
+                                        showRatingsForm(msg);
                                   } catch (e) {
                                      bot.sendMessage(msg.from.id, risposta);
 
@@ -213,7 +214,24 @@ function getRitardo(msg){
 
 }
 
+function showRatingsForm(msg){
 
+  let ratingsMarkup = bot.keyboard([
+    [emoji.emojify(':hearts:')],
+    [emoji.emojify(':hearts:'),emoji.emojify(':hearts:')],
+    [emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:')],
+    [emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:')],
+    [emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:'),emoji.emojify(':hearts:')]
+  ], {resize: true});
+  if(getLanguagePref(msg) === 'it'){
+      return bot.sendMessage(msg.from.id, 'Facci sapere come è stata la tua esperienza con il bot, ci aiuterai a migliorarlo!', {ratingsMarkup});
+  }else if(getLanguagePref(msg) === 'en'){
+      return bot.sendMessage(msg.from.id, 'Rate your experience with our chatbot, your feedback will be helpful!', {ratingsMarkup});
+  }
+
+
+
+}
 
 function displayFeedRSS(msg_from_id){
   let parser = new Parser();
