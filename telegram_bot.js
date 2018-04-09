@@ -83,6 +83,7 @@ bot.on('/panorama', msg => {
     }else if(getLanguagePref(msg) === 'en'){
       return bot.sendMessage(msg.from.id, 'Your train is stuck in the middle of nowhere? Take a shot a send the pic to the chatbot. The best pictured will be published on the official Facebook page. ');
     }
+    sendAnalytics('/panorama', 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!', 'handled');
 });
 
 bot.on('photo', msg => {
@@ -329,28 +330,45 @@ function sendGifByRitardo(ritardo, msg){
   })
 }
 
-/*
-* NOT USED
-*/
-function sendAnalytics(conversationID,msg, from, msgType){
+
+
+function sendAnalytics(userMsg, botMsg, msgType){
 // MANDATORY FIELDS: api_key, type, user_id, time_stamp, platform, message
-   	var newMsg = chatbase.newMessage(process.env.chatbase_key, conversationID)
-    .setPlatform('Telegram')
-    .setTimestamp(Date.now().toString())
-    .setMessage(msg)
+
+   var messageSet = chatbase.newMessageSet().setApiKey(process.env.chatbase_key).setPlatform("Telegram");
+
+   const userMessage = messageSet.newMessage() // Create a new instance of Message
+     .setAsTypeUser() // Mark it as a message coming from the human
+     .setUserId(msg.from.id) // User ID on the chat platform, or custom ID
+     .setTimestamp(Date.now().toString()) // Mandatory
+     .setMessage(userMsg); // User message
     if(msgType == 'handled'){
-       newMsg.setAsHandled()
+       userMessage.setAsHandled()
        console.log('set as handled');
     }else if (msgType === 'not_handled') {
-        newMsg.setAsNotHandled()
+        userMessage.setAsNotHandled()
         console.log('set as NOT handled');
     }
-    if(from === 'user'){
-       newMsg.setAsTypeUser()
-       console.log('set as type user');
-    }else if (from === 'agent') {
-        newMsg.setAsTypeAgent()
-        console.log('set as agent');
-    }
-    newMsg.send().catch(err => console.error(err));
+      userMessage.setAsTypeUser()
+
+
+
+    const botMessage = messageSet.newMessage() // See above
+      .setAsTypeAgent() // This message is the bot response
+      .setUserId(msg.from.id) // Same as above
+      .setTimestamp(Date.now().toString()) // Mandatory
+      .setMessage(botMsg); // Bot response message
+
+    // Send all messages to Chatbase
+    return messageSet.sendMessageSet()
+      .then(response => {
+        var createResponse = response.getCreateResponse();
+        return createResponse.all_succeeded; // "true" if all messages were correctly formatted and have been successfully forwarded
+      })
+      .catch(error => {
+        console.error(error);
+        return false;
+      });
+
+
 }
