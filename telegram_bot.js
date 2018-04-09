@@ -349,7 +349,7 @@ function sendAnalytics(msg, msgType){
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
-      }
+      },
       json: {
             api_key: process.env.chatbase_key,
             user_id: msg.from.id,
