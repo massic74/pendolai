@@ -341,7 +341,7 @@ function sendAnalytics(msg, botMsg, msgType){
    const userMessage = messageSet.newMessage() // Create a new instance of Message
      .setAsTypeUser() // Mark it as a message coming from the human
      .setUserId(msg.from.id) // User ID on the chat platform, or custom ID
-     .setTimestamp(new Date().getTime().toString()) // Mandatory
+     .setTimestamp(Date.now().toString()) // Mandatory
      .setMessage(msg.text); // User message
     if(msgType == 'handled'){
        userMessage.setAsHandled()
@@ -357,7 +357,7 @@ function sendAnalytics(msg, botMsg, msgType){
     const botMessage = messageSet.newMessage() // See above
       .setAsTypeAgent() // This message is the bot response
       .setUserId(msg.from.id) // Same as above
-      .setTimestamp(new Date().getTime().toString()) // Mandatory
+      .setTimestamp(Date.now().toString()) // Mandatory
       .setMessage(botMsg); // Bot response message
 
     // Send all messages to Chatbase
