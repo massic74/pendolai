@@ -78,8 +78,8 @@ bot.on('/treno', msg => {
 });
 
 bot.on('/panorama', msg => {
+    sendAnalytics(msg,'user');
     if(getLanguagePref(msg) === 'it'){
-    //  sendAnalytics(msg, 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!', 'handled');
       return bot.sendMessage(msg.from.id, 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!');
     }else if(getLanguagePref(msg) === 'en'){
       return bot.sendMessage(msg.from.id, 'Your train is stuck in the middle of nowhere? Take a shot a send the pic to the chatbot. The best pictured will be published on the official Facebook page. ');
@@ -216,6 +216,9 @@ function getRitardo(msg){
 
 }
 
+/**
+*** NOT USED
+*/
 function showRatingsForm(msg){
 
 
@@ -333,43 +336,29 @@ function sendGifByRitardo(ritardo, msg){
 
 
 
-function sendAnalytics(msg, botMsg, msgType){
+function sendAnalytics(msg, msgType){
 // MANDATORY FIELDS: api_key, type, user_id, time_stamp, platform, message
 
-   var messageSet = chatbase.newMessageSet().setApiKey(process.env.chatbase_key).setPlatform("Telegram");
-
-   const userMessage = messageSet.newMessage() // Create a new instance of Message
-     .setAsTypeUser() // Mark it as a message coming from the human
-     .setUserId(msg.from.id) // User ID on the chat platform, or custom ID
-     .setTimestamp(Date.now().toString()) // Mandatory
-     .setMessage(msg.text); // User message
-    if(msgType == 'handled'){
-       userMessage.setAsHandled()
-       console.log('set as handled');
-    }else if (msgType === 'not_handled') {
-        userMessage.setAsNotHandled()
-        console.log('set as NOT handled');
-    }
-      userMessage.setAsTypeUser()
-
-
-
-    const botMessage = messageSet.newMessage() // See above
-      .setAsTypeAgent() // This message is the bot response
-      .setUserId(msg.from.id) // Same as above
-      .setTimestamp(Date.now().toString()) // Mandatory
-      .setMessage(botMsg); // Bot response message
-
-    // Send all messages to Chatbase
-    return messageSet.sendMessageSet()
-      .then(response => {
-        var createResponse = response.getCreateResponse();
-        return createResponse.all_succeeded; // "true" if all messages were correctly formatted and have been successfully forwarded
-      })
-      .catch(error => {
-        console.error(error);
-        return false;
-      });
+    var trace = 'https://chatbase.com/api/message';
+  var type = 'user';
+  if(msgType === 'agent'){
+    type = 'agent';
+  }
+    request(
+      url: trace,
+      method: 'POST',
+      json: {
+            api_key: process.env.chatbase_key,
+            user_id: msg.from.id,
+            type: type,
+            time_stamp: Date.now().toString(),
+            platform: 'Telegram',
+            message: msg.text,
+            session_id: msg.chat.id
+      }
+    }, function(error, response, body){
+      console.log(body);
+    });
 
 
 }
