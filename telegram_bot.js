@@ -79,11 +79,12 @@ bot.on('/treno', msg => {
 
 bot.on('/panorama', msg => {
     if(getLanguagePref(msg) === 'it'){
+      sendAnalytics('/panorama', 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!', 'handled');
       return bot.sendMessage(msg.from.id, 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!');
     }else if(getLanguagePref(msg) === 'en'){
       return bot.sendMessage(msg.from.id, 'Your train is stuck in the middle of nowhere? Take a shot a send the pic to the chatbot. The best pictured will be published on the official Facebook page. ');
     }
-    sendAnalytics('/panorama', 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!', 'handled');
+
 });
 
 bot.on('photo', msg => {
