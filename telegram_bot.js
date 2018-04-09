@@ -79,7 +79,7 @@ bot.on('/treno', msg => {
 
 bot.on('/panorama', msg => {
     if(getLanguagePref(msg) === 'it'){
-      sendAnalytics('/panorama', 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!', 'handled');
+      sendAnalytics(msg, 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!', 'handled');
       return bot.sendMessage(msg.from.id, 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!');
     }else if(getLanguagePref(msg) === 'en'){
       return bot.sendMessage(msg.from.id, 'Your train is stuck in the middle of nowhere? Take a shot a send the pic to the chatbot. The best pictured will be published on the official Facebook page. ');
@@ -333,7 +333,7 @@ function sendGifByRitardo(ritardo, msg){
 
 
 
-function sendAnalytics(userMsg, botMsg, msgType){
+function sendAnalytics(msg, botMsg, msgType){
 // MANDATORY FIELDS: api_key, type, user_id, time_stamp, platform, message
 
    var messageSet = chatbase.newMessageSet().setApiKey(process.env.chatbase_key).setPlatform("Telegram");
@@ -342,7 +342,7 @@ function sendAnalytics(userMsg, botMsg, msgType){
      .setAsTypeUser() // Mark it as a message coming from the human
      .setUserId(msg.from.id) // User ID on the chat platform, or custom ID
      .setTimestamp(Date.now().toString()) // Mandatory
-     .setMessage(userMsg); // User message
+     .setMessage(msg.text); // User message
     if(msgType == 'handled'){
        userMessage.setAsHandled()
        console.log('set as handled');
