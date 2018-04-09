@@ -360,6 +360,7 @@ function sendAnalytics(msg, msgType){
             session_id: msg.chat.id
       }
     }, function(error, response, body){
+      console.log(error);
       console.log(body);
     });
 
