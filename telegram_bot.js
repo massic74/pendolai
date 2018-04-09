@@ -344,7 +344,7 @@ function sendAnalytics(msg, msgType){
   if(msgType === 'agent'){
     type = 'agent';
   }
-    request(
+    request({
       url: trace,
       method: 'POST',
       json: {
