@@ -78,7 +78,7 @@ bot.on('/treno', msg => {
 });
 
 bot.on('/panorama', msg => {
-    sendAnalytics(msg,'user');
+    //sendAnalytics(msg,'user');
     if(getLanguagePref(msg) === 'it'){
       return bot.sendMessage(msg.from.id, 'In treno è fermo in mezzo alla campagna come al solito? Approfittane almeno per scattare una foto del paesaggio e mandala al chatbot. Le più belle verranno pubblicate sulla pagina Facebook ufficiale!');
     }else if(getLanguagePref(msg) === 'en'){
