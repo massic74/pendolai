@@ -232,7 +232,7 @@ function getRitardoMedio(){
           if(rit.indexOf('orario') != -1){
             console.log('0');
           }
-          if(child.val().indexOf('anticipo') != -1){
+          if(child.val().ritardo.indexOf('anticipo') != -1){
             console.log('0');
           }
           console.log(child.val().ritardo);
