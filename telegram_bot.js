@@ -226,7 +226,7 @@ function getRitardoMedio(){
   var ritardiRef = firebase.app().database().ref('/ritardi/');
   ritardiRef.once("value", function(snapshot) {
     snapshot.forEach(function(child) {
-      console.log(child.ritardo);
+      console.log(child.val().ritardo);
     });
   });
 
