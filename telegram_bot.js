@@ -40,6 +40,11 @@ bot.on('text', msg => {
 
 });
 
+bot.on(['/stats'], msg => {
+
+    return getRitardoMedio();
+
+});
 
 bot.on(['new_chat_members'], msg => {
 
@@ -213,6 +218,18 @@ function getRitardo(msg){
                     }
 
           });
+
+}
+
+function getRitardoMedio(){
+
+  var ritardiRef = firebase.database.ref('/ritardi/');
+  ritardiRef.once("value", function(snapshot) {
+    snapshot.forEach(function(child) {
+      console.log(child.ritardo);
+    });
+  });
+
 
 }
 
