@@ -228,7 +228,8 @@ function getRitardoMedio(){
     snapshot.forEach(function(child) {
       if(child.val().ritardo != undefined){
         if(child.val().split(' ').length > 2){
-          if(child.val().indexOf('orario') != -1){
+          var rit = child.val().ritardo;
+          if(rit.indexOf('orario') != -1){
             console.log('0');
           }
           if(child.val().indexOf('anticipo') != -1){
