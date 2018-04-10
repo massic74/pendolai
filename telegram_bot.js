@@ -226,8 +226,19 @@ function getRitardoMedio(){
   var ritardiRef = firebase.app().database().ref('/ritardi/');
   ritardiRef.once("value", function(snapshot) {
     snapshot.forEach(function(child) {
-      if(child.val().ritardo != 'undefined')
-       console.log(child.val().ritardo);
+      if(child.val().ritardo != undefined){
+        if(child.val().split(' ').length > 2){
+          if(child.val().indexOf('orario') != -1){
+            console.log('0');
+          }
+          if(child.val().indexOf('anticipo') != -1){
+            console.log('0');
+          }
+          console.log(child.val().ritardo);
+        }
+
+      }
+
     });
   });
 
