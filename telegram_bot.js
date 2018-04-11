@@ -255,7 +255,7 @@ function ritardoMedio(msg){
   ritardiRef.once('value', function(snap) {
      snap.forEach(function(userSnap) {
           contra = contra +1;
-          var v = snapshot.val();
+          var v = userSnap.val();
           if(v.indexOf('orario')){
             console.log('IN ORARIO');
               sommaRitardi = sommaRitardi + 0;
