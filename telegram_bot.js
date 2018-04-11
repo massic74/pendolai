@@ -34,7 +34,7 @@ bot.start();
 
 bot.on('text', msg => {
   console.log(msg.from.id + ' -> ' + msg.text);
-  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' ){
+  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' ){
     return getRitardo(msg);
   }
 
@@ -42,7 +42,7 @@ bot.on('text', msg => {
 
 bot.on(['/stats'], msg => {
 
-    return getRitardoMedio();
+    return getStats(msg);
 
 });
 
@@ -221,26 +221,23 @@ function getRitardo(msg){
 
 }
 
-function getRitardoMedio(){
+function getStats(msg){
 
+  var usersNumber = 0;
+  var lastUser = '';
+  var lastTimestamp = '';
   var ritardiRef = firebase.app().database().ref('/ritardi/');
-  ritardiRef.once("value", function(snapshot) {
+  var i = 0;
+  ritardiRef.orderByChild("timestamp").once("value", function(snapshot) {
     snapshot.forEach(function(child) {
-      if(child.val().ritardo != undefined){
-        if(child.val().ritardo.split(' ').length > 2){
-          var rit = child.val().ritardo;
-          if(rit.indexOf('orario') != -1){
-            console.log('0');
-          }
-          if(child.val().ritardo.indexOf('anticipo') != -1){
-            console.log('0');
-          }
-          console.log(child.val().ritardo);
+        if(i === 0 && child.val().first_name != undefined){
+          lastUser = child.val().first_name;
+          lastTimestamp = new Date(child.val().timestamp).format("DD-MM-YYYY h:mm:ss");
         }
-
-      }
-
+        usersNumber = usersNumber +1;
+        i = i +1;
     });
+     bot.sendMessage(msg.from.id,'Numero di utenti: ' + usersNumber + '\n' + ' Ultimo utente: ' +  lastUser + '\n'  + ' Ultima richiesta: ' + lastTimestamp);
   });
 
 
@@ -327,6 +324,7 @@ function saveMessage(msg,ritardo) {
 */
   firebase.app().database().ref('/ritardi/').child(msg.from.id).update({
     userID: msg.from.id,
+    username: msg.from.first_name
     trainID: msg.text,
     ritardo: ritardo,
     timestamp: timestamp,
