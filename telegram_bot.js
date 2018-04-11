@@ -231,7 +231,7 @@ function getStats(msg){
 
 
 
-  ritardiRef.orderByChild("timestamp").limitToLast(1).on("child_added", function(snapshot) => {
+  ritardiRef.orderByChild("timestamp").limitToLast(1).on("child_added", function(snapshot) {
 
           console.log(snapshot.val());
 
