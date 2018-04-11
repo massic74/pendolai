@@ -238,9 +238,9 @@ function getStats(msg){
        console.log(userSnap.val().userID);
          i = i+1;
      });
-     bot.sendMessage(msg.from.id, 'Numero di utenti: ', i) ;
-  });
 
+  });
+  return bot.sendMessage(msg.from.id, 'Numero di utenti: ', i) ;
 }
 
 /**
