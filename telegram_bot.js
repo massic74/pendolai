@@ -230,8 +230,10 @@ function getStats(msg){
   var i = 0;
   ritardiRef.orderByChild("timestamp").once("value", function(snapshot) {
     snapshot.forEach(function(child) {
-        if(i === 0 && child.val().first_name != undefined){
-          lastUser = child.val().first_name;
+        if(i === 0){
+          if(child.val().first_name != undefined){
+            lastUser = child.val().first_name;
+          }
           lastTimestamp = new Date(child.val().timestamp).format("DD-MM-YYYY h:mm:ss");
         }
         usersNumber = usersNumber +1;
