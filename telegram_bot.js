@@ -234,9 +234,8 @@ function getStats(msg){
   });
 
   ritardiRef.once('value', function(snap) {
-     var i = 0;
      snap.forEach(function(userSnap) {
-       i = i+1;
+         i = i+1;
      });
      bot.sendMessage(msg.from.id, 'Numero di utenti: ', i) ;
   });
