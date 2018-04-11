@@ -228,22 +228,24 @@ function getStats(msg){
   var lastTimestamp = '';
   var ritardiRef = firebase.app().database().ref('/ritardi');
   var i = 0;
-    try{
-  ritardiRef.orderByChild("timestamp").on("child_added", function(snapshot) {
-    console.log(snapshot.val());
-    snapshot.forEach(function(child) {
-  /*      if(i === 0){
-          lastUser = child.val().userID;
-          lastTimestamp = child.val().when;
-        } */
-        usersNumber = usersNumber +1;
-         i = i +1;
-     });
 
+  ritardiRef.orderByChild("timestamp").on("child_added", function(snapshot) {
+    try{
+        snapshot.forEach(function(child) {
+          console.log(snapshot.val());
+
+      /*      if(i === 0){
+              lastUser = child.val().userID;
+              lastTimestamp = child.val().when;
+            } */
+            usersNumber = usersNumber +1;
+             i = i +1;
+         });
+   }catch(error){
+     console.error("Error retrieving data");
+   }
   });
-}catch(error){
-  console.error("Error retrieving data");
-}
+
 bot.sendMessage(msg.from.id,'Numero di utenti: ' + usersNumber);
 }
 
