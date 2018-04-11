@@ -235,7 +235,7 @@ function getStats(msg){
 
   ritardiRef.once('value', function(snap) {
      snap.forEach(function(userSnap) {
-       console.log(userSnap.val().userID);
+       //console.log(userSnap.val().userID);
          i = i+1;
      });
 
