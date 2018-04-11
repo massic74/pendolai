@@ -230,11 +230,12 @@ function getStats(msg){
   var i = 0;
 
   ritardiRef.orderByChild("timestamp").limitToLast(1).on("child_added", function(snapshot) {
-        bot.sendMessage(msg.from.id,'Ultimo utente: ' + snapshot.val().when + ' : ' + snapshot.val().first_name) ;
+        bot.sendMessage(msg.from.id,'Ultimo utente: ' + snapshot.val().when + ' : ' + snapshot.val().first_name + ' - ' + snapshot.val().username + ' -> ID: ' + snapshot.val().userID) ;
   });
 
   ritardiRef.once('value', function(snap) {
      snap.forEach(function(userSnap) {
+       console.log(userSnap.val().userID);
          i = i+1;
      });
      bot.sendMessage(msg.from.id, 'Numero di utenti: ', i) ;
