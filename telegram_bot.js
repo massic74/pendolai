@@ -229,7 +229,7 @@ function getStats(msg){
   var ritardiRef = firebase.app().database().ref('/ritardi');
   var i = 0;
 
-  ritardiRef.orderByChild("timestamp").on("child_added", function(snapshot) {
+  ritardiRef.orderByChild("timestamp").once("value", function(snapshot) {
     console.log(snapshot.val());
     snapshot.forEach(function(child) {
   /*      if(i === 0){
