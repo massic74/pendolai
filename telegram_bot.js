@@ -48,7 +48,7 @@ bot.on(['/stats'], msg => {
 
 bot.on(['/mediarit'], msg => {
 
-    return getRitardoMedio(msg);
+    return ritardoMedio(msg);
 
 });
 
