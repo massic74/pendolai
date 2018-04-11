@@ -234,7 +234,7 @@ function getStats(msg){
           if(child.val().first_name != undefined){
             lastUser = child.val().first_name;
           }
-          lastTimestamp = new Date(child.val().timestamp).toString();
+          lastTimestamp = (new Date(child.val().timestamp)).toString();
         }
         usersNumber = usersNumber +1;
         i = i +1;
