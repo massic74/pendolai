@@ -257,22 +257,19 @@ function ritardoMedio(msg){
           contra = contra +1;
           var v = userSnap.val().ritardo;
           if(v.indexOf('orario') != -1){
-            console.log('IN ORARIO');
               sommaRitardi = sommaRitardi + 0;
           }else if (v.indexOf('anticipo') != -1) {
-            console.log('IN ANTICIPO');
             sommaRitardi = sommaRitardi + 0;
           }else {
             if(v.split(' ').length > 2){
                 var arr = v.split(' ');
-                console.log('RIT:' + parseInt(arr[1]));
                 sommaRitardi = sommaRitardi + parseInt(arr[1]);
             }
           }
 
      });
      console.log('MEDIA RITARDO: ' + sommaRitardi/contra);
-     bot.sendMessage(msg.from.id, 'MEDIA RITARDO: ' + sommaRitardi/contra) ;
+     bot.sendMessage(msg.from.id, 'Dalla base dati che avete generato risulta che la media ritardi è di minuti: ' + sommaRitardi/contra) ;
   });
 
 }
