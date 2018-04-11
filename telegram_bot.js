@@ -229,8 +229,10 @@ function getStats(msg){
   var ritardiRef = firebase.app().database().ref('/ritardi/');
   var i = 0;
 
-  ritardiRef.orderByChild("timestamp").on("child_added", function(snapshot) {
-        snapshot.forEach(function(child) {
+
+
+  ritardiRef.orderByChild("timestamp").limitToLast(1).on("child_added", function(snapshot) => {
+
           console.log(snapshot.val());
 
       /*      if(i === 0){
@@ -239,10 +241,9 @@ function getStats(msg){
             } */
             usersNumber = usersNumber +1;
              i = i +1;
-         });
+
         bot.sendMessage(msg.from.id,'Numero di utenti: ' + usersNumber);
   });
-
 
 }
 
