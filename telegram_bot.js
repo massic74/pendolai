@@ -256,15 +256,15 @@ function ritardoMedio(msg){
      snap.forEach(function(userSnap) {
           contra = contra +1;
           var v = userSnap.val();
-          if(v.indexOf('orario') != -1){
+          if(userSnap.val().indexOf('orario') != -1){
             console.log('IN ORARIO');
               sommaRitardi = sommaRitardi + 0;
-          }else if (v.indexOf('anticipo') != -1) {
+          }else if (userSnap.val().indexOf('anticipo') != -1) {
             console.log('IN ANTICIPO');
             sommaRitardi = sommaRitardi + 0;
           }else {
-            if(v.split(' ').length > 2){
-                var arr = v.split(' ');
+            if(userSnap.val().split(' ').length > 2){
+                var arr = userSnap.val().split(' ');
                 console.log('RIT:' + parseInt(arr[1]));
                 sommaRitardi = sommaRitardi + parseInt(arr[1]);
             }
