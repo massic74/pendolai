@@ -324,7 +324,7 @@ function saveMessage(msg,ritardo) {
 */
   firebase.app().database().ref('/ritardi/').child(msg.from.id).update({
     userID: msg.from.id,
-    username: msg.from.first_name
+    username: msg.from.first_name,
     trainID: msg.text,
     ritardo: ritardo,
     timestamp: timestamp,
