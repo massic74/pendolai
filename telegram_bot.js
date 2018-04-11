@@ -230,14 +230,14 @@ function getStats(msg){
   var i = 0;
   ritardiRef.orderByChild("timestamp").once("value", function(snapshot) {
     snapshot.forEach(function(child) {
-        if(i === 0){
+  /*      if(i === 0){
           lastUser = child.val().userID;
           lastTimestamp = child.val().when;
-        }
+        } */
         usersNumber = usersNumber +1;
          i = i +1;
      });
-     bot.sendMessage(msg.from.id,'Numero di utenti: ' + usersNumber + '\n' + ' Ultimo utente: ' +  lastUser + '\n'  + ' Ultima richiesta: ' + lastTimestamp);
+     bot.sendMessage(msg.from.id,'Numero di utenti: ' + usersNumber);
   });
 
 
