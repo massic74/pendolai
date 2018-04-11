@@ -265,7 +265,7 @@ function ritardoMedio(msg){
           }else {
             if(v.split(' ').length > 2){
                 var arr = v.split(' ');
-                console.log('RIT:' + parseInt(arr[1]);
+                console.log('RIT:' + parseInt(arr[1]));
                 sommaRitardi = sommaRitardi + parseInt(arr[1]);
             }
           }
