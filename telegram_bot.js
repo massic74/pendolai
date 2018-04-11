@@ -228,9 +228,9 @@ function getStats(msg){
   var lastTimestamp = '';
   var ritardiRef = firebase.app().database().ref('/ritardi');
   var i = 0;
-  
+
   ritardiRef.orderByChild("timestamp").on("child_added", function(snapshot) {
-    console.log(snap.val());
+    console.log(snapshot.val());
     snapshot.forEach(function(child) {
   /*      if(i === 0){
           lastUser = child.val().userID;
