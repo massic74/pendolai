@@ -270,6 +270,7 @@ function ritardoMedio(msg){
      });
      console.log('MEDIA RITARDO: ' + sommaRitardi/contra);
      bot.sendMessage(msg.from.id, 'Dalla base dati che avete generato con le vostre query risulta che la media ritardi è di minuti: ' + sommaRitardi/contra) ;
+     sendGifByRitardo('ritardo', msg);
   });
 
 }
