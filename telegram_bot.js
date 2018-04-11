@@ -225,7 +225,7 @@ function getStats(msg){
 
   var usersNumber = 0;
   var lastUser = '';
-  var lastTimestamp = '';
+  var lastTimestamp = new Date();
   var ritardiRef = firebase.app().database().ref('/ritardi/');
   var i = 0;
   ritardiRef.orderByChild("timestamp").once("value", function(snapshot) {
@@ -234,7 +234,7 @@ function getStats(msg){
           if(child.val().first_name != undefined){
             lastUser = child.val().first_name;
           }
-          lastTimestamp = new Date(child.val().timestamp).toString();
+          lastTimestamp = new Date(child.val().timestamp)..format("DD-MM-YYYY h:mm:ss");
         }
         usersNumber = usersNumber +1;
         i = i +1;
