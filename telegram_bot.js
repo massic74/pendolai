@@ -34,7 +34,7 @@ bot.start();
 
 bot.on('text', msg => {
   console.log(msg.from.id + ' -> ' + msg.text);
-  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' ){
+  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' && msg.text != '/mediarit'){
     return getRitardo(msg);
   }
 
@@ -43,6 +43,12 @@ bot.on('text', msg => {
 bot.on(['/stats'], msg => {
 
     return getStats(msg);
+
+});
+
+bot.on(['/mediarit'], msg => {
+
+    return getRitardoMedio(msg);
 
 });
 
@@ -235,10 +241,38 @@ function getStats(msg){
 
   ritardiRef.once('value', function(snap) {
      snap.forEach(function(userSnap) {
-       //console.log(userSnap.val().userID);
          i = i+1;
      });
      bot.sendMessage(msg.from.id, 'Numero di utenti: ' + i) ;
+  });
+
+}
+
+function ritardoMedio(msg){
+  var sommaRitardi = 0;
+  var contra = 0;
+  var ritardiRef = firebase.app().database().ref('/ritardi/');
+  ritardiRef.once('value', function(snap) {
+     snap.forEach(function(userSnap) {
+          contra = contra +1;
+          var v = snapshot.val();
+          if(v.indexOf('orario')){
+            console.log('IN ORARIO');
+              sommaRitardi = sommaRitardi + 0;
+          }else if (v.indexOf('anticipo')) {
+            console.log('IN ANTICIPO');
+            sommaRitardi = sommaRitardi + 0;
+          }else {
+            if(v.split(' ').length > 2){
+                var arr = v.split(' ');
+                console.log('RIT:' + parseInt(arr[1]);
+                sommaRitardi = sommaRitardi + parseInt(arr[1]);
+            }
+          }
+
+     });
+     console.log('MEDIA RITARDO: ' + sommaRitardi/contra);
+     bot.sendMessage(msg.from.id, 'MEDIA RITARDO: ' + sommaRitardi/contra) ;
   });
 
 }
