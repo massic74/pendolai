@@ -256,10 +256,10 @@ function ritardoMedio(msg){
      snap.forEach(function(userSnap) {
           contra = contra +1;
           var v = userSnap.val();
-          if(v.indexOf('orario')){
+          if(v.indexOf('orario') != -1){
             console.log('IN ORARIO');
               sommaRitardi = sommaRitardi + 0;
-          }else if (v.indexOf('anticipo')) {
+          }else if (v.indexOf('anticipo') != -1) {
             console.log('IN ANTICIPO');
             sommaRitardi = sommaRitardi + 0;
           }else {
