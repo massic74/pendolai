@@ -34,7 +34,7 @@ bot.start();
 
 bot.on('text', msg => {
   console.log(msg.from.id + ' -> ' + msg.text);
-  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' && msg.text != '/mediarit'){
+  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' && msg.text != '/mediaritardi'){
     return getRitardo(msg);
   }
 
@@ -46,7 +46,7 @@ bot.on(['/stats'], msg => {
 
 });
 
-bot.on(['/mediarit'], msg => {
+bot.on(['/mediaritardi'], msg => {
 
     return ritardoMedio(msg);
 
@@ -61,7 +61,7 @@ bot.on(['new_chat_members'], msg => {
 bot.on(['/start'], msg => {
 
     let replyMarkup = bot.keyboard([
-      ['/treno'],['/panorama'],['/news'],['/italian'],['/english'],['/whois']
+      ['/treno'],['/mediaritardi'],['/panorama'],['/news'],['/italian'],['/english'],['/whois']
     ], {resize: true},{one_time_keyboard: true});
     //default language italian
     saveLanguagePreference(msg, 'ita');
@@ -269,7 +269,7 @@ function ritardoMedio(msg){
 
      });
      console.log('MEDIA RITARDO: ' + sommaRitardi/contra);
-     bot.sendMessage(msg.from.id, 'Dalla base dati che avete generato risulta che la media ritardi è di minuti: ' + sommaRitardi/contra) ;
+     bot.sendMessage(msg.from.id, 'Dalla base dati che avete generato con le vostre query risulta che la media ritardi è di minuti: ' + sommaRitardi/contra) ;
   });
 
 }
