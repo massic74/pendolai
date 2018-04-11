@@ -226,9 +226,11 @@ function getStats(msg){
   var usersNumber = 0;
   var lastUser = '';
   var lastTimestamp = '';
-  var ritardiRef = firebase.app().database().ref('/ritardi/');
+  var ritardiRef = firebase.app().database().ref('/ritardi');
   var i = 0;
-  ritardiRef.orderByChild("timestamp").once("value", function(snapshot) {
+  
+  ritardiRef.orderByChild("timestamp").on("child_added", function(snapshot) {
+    console.log(snap.val());
     snapshot.forEach(function(child) {
   /*      if(i === 0){
           lastUser = child.val().userID;
