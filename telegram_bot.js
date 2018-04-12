@@ -255,18 +255,20 @@ function ritardoMedio(msg){
   ritardiRef.once('value', function(snap) {
      snap.forEach(function(userSnap) {
           contra = contra +1;
-          var v = userSnap.val().ritardo;
-          if(v.indexOf('orario') != -1){
+          var v = '';
+          if(userSnap.val().ritardo != undefined){
+            if(v.indexOf('orario') != -1){
+                sommaRitardi = sommaRitardi + 0;
+            }else if (v.indexOf('anticipo') != -1) {
               sommaRitardi = sommaRitardi + 0;
-          }else if (v.indexOf('anticipo') != -1) {
-            sommaRitardi = sommaRitardi + 0;
-          }else {
-            if(v.split(' ').length > 2){
-                var arr = v.split(' ');
-                sommaRitardi = sommaRitardi + parseInt(arr[1]);
+            }else {
+              if(v.split(' ').length > 2){
+                  var arr = v.split(' ');
+                  sommaRitardi = sommaRitardi + parseInt(arr[1]);
+              }
             }
           }
-
+          
      });
      console.log('MEDIA RITARDO: ' + sommaRitardi/contra);
      bot.sendMessage(msg.from.id, 'Dalla base dati che avete generato con le vostre query risulta che la media ritardi è di minuti: ' + sommaRitardi/contra) ;
