@@ -185,10 +185,10 @@ function getRitardoStazioni(msg){
                                             for (var i = 0; i < stazioniArr.length; i++) {
                                               var dEff = new Date(stazioniArr[i].effettiva);
 
-                                              var hoursEff = format('hh:mm', dEff));
+                                              var hoursEff = format('hh:mm', dEff);
 
                                               var dProg = new Date(stazioniArr[i].programmata);
-                                              var hoursProg = format('hh:mm', dProg));
+                                              var hoursProg = format('hh:mm', dProg);
 
                                               messaggio = messaggio + stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + ' -ritardo: ' + stazioniArr[i].ritardo + '\n       |' + '\n       |';
                                             }
