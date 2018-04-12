@@ -193,6 +193,7 @@ function getRitardoStazioni(msg){
                                             }
                                         }
                                         bot.sendMessage(msg.from.id, messaggio);
+                                      var ritardo = bodyJSON.compRitardo[0];
                                         sendGifByRitardo(ritardo, msg);
                                         saveMessage(msg,ritardo);
                                   } catch (e) {
