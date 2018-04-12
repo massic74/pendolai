@@ -196,6 +196,7 @@ function getRitardoStazioni(msg){
                                         sendGifByRitardo(ritardo, msg);
                                         saveMessage(msg,ritardo);
                                   } catch (e) {
+                                    console.error(e)
                                      bot.sendMessage(msg.from.id, risposta);
                                   }
                         })
