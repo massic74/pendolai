@@ -10,6 +10,7 @@ const token = process.env.bot_token;
 const PORT = process.env.PORT || 5000
 let Parser = require('rss-parser');
 var emoji = require('node-emoji')
+var format = require('date-format');
 
 const bot = new TeleBot({
     token: token
@@ -184,12 +185,12 @@ function getRitardoStazioni(msg){
                                             for (var i = 0; i < stazioniArr.length; i++) {
                                               var dEff = new Date(stazioniArr[i].effettiva);
 
-                                              var hoursEff = ('0' + dEff.getUTCHours()).slice(-2);
-                                              var minutesEff = ('0' + dEff.getUTCMinutes()).slice(-2);
+                                              var hoursEff = format('hh:mm', dEff));
+
                                               var dProg = new Date(stazioniArr[i].programmata);
-                                              var hoursProg = ('0' + dProg.getUTCHours()).slice(-2);
-                                              var minutesProg = ('0' + dProg.getUTCMinutes()).slice(-2);
-                                              messaggio = messaggio + stazioniArr[i].stazione + ' -programmata: ' + hoursProg + ':' + minutesProg + ' -effettiva: '+ hoursEff + ':' + minutesEff + ' -ritardo: ' + stazioniArr[i].ritardo + '\n       |' + '\n       |';
+                                              var hoursProg = format('hh:mm', dProg));
+
+                                              messaggio = messaggio + stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + ' -ritardo: ' + stazioniArr[i].ritardo + '\n       |' + '\n       |';
                                             }
                                         }
                                         bot.sendMessage(msg.from.id, messaggio);
