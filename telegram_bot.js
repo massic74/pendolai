@@ -34,7 +34,7 @@ bot.start();
 
 bot.on('text', msg => {
   console.log(msg.from.id + ' -> ' + msg.text);
-  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' && msg.text != '/mediaritardi'){
+  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' && msg.text != '/mediaritardi' && msg.text != '/stazioni'){
     return getRitardo(msg);
   }
 
@@ -98,6 +98,11 @@ bot.on('/panorama', msg => {
 
 });
 
+bot.on('/stazioni', msg => {
+    getRitardoStazioni(msg);
+});
+
+
 bot.on('photo', msg => {
     var picFile = '';
     console.log('Foto: ' + msg.photo[2].file_id)
@@ -137,6 +142,63 @@ bot.on('/news', msg => {
       return displayFeedRSS(msg.from.id);
 
 });
+
+function getRitardoStazioni(msg){
+
+  let numeroTreno = msg.text;
+  numeroTreno = numeroTreno.replace('/treno ','');
+
+  //console.log(`messaggio dall'utente: ${ numeroTreno }`);
+  var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
+  if(getLanguagePref(msg) === 'en'){
+    risposta = 'I\'m sorry, didn\'t get your question, or more likely the train number that you provided was wrong. Sorry for the inconvenience!'
+  }
+  const answers = bot.answerList(msg.id, {cacheTime: 60});
+
+  var uri1 = 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/' + numeroTreno;
+  //  console.log('URLO1: ', uri1);
+
+          request({ uri: uri1 }, function(err, response, body){
+                    if(body.toString() === ''){
+                      risposta = 'Sei sicuro di aver inserito un numero di treno valido?? \n' +
+                                ' Ricorda che puoi chiedermi a che punto sta il tuo treno semplicemente chattandomi il numero del treno! \n' +
+                                ' Digita help per sapere altre cosucce che puoi chiedermi! Enjoy ;)';
+                      if(getLanguagePref(msg) === 'en'){
+                        risposta = 'Are you sure that you typed a valid train ID?'
+                      }
+                      bot.sendMessage(msg.from.id, risposta);
+                    } else{
+                    try{
+                        stazione = body.toString();
+                        var arr = stazione.split('-');
+                        stazione = arr[2].toString().replace(/\r?\n|\r/g, '').replace(' ','');
+                      //  console.log('STAZIOnE: ', stazione);
+                        request({ uri: 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/' + stazione + '/' + numeroTreno }, function(err, response, body){
+                            //  console.log('URLO2', 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/' + stazione + '/' + numeroTreno);
+                                try {
+                                        var bodyJSON = JSON.parse(body);
+                                        var messaggio = '';
+                                        var stazioniArr = bodyJSON.fermate;
+                                        if(stazioniArr.length >0){
+                                            for (var i = 0; i < stazioniArr.length; i++) {
+                                              messaggio = messaggio + stazioniArr[i].stazione + ' - partenza programmata: ' + stazioniArr[i].programmata + ' - partenza effettiva: ' + stazioniArr[i].effettiva + ' - ritardo: ' + stazioniArr[i].ritardo + '\n       |' + '\n       |';
+                                            }
+                                        }
+                                        bot.sendMessage(msg.from.id, messaggio);
+                                        sendGifByRitardo(ritardo, msg);
+                                        saveMessage(msg,ritardo);
+                                  } catch (e) {
+                                     bot.sendMessage(msg.from.id, risposta);
+                                  }
+                        })
+                      }catch (e){
+                         console.error(err)
+                         bot.sendMessage(msg.from.id, risposta);
+                      }
+
+                    }
+          });
+}
 
 function getRitardo(msg){
   let numeroTreno = msg.text;
