@@ -34,10 +34,13 @@ bot.start();
 
 bot.on('text', msg => {
   console.log(msg.from.id + ' -> ' + msg.text);
-  if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' && msg.text != '/mediaritardi' && msg.text != '/stazioni'){
-    return getRitardo(msg);
+  if(msg.text.indexOf('/stazioni ') != -1){
+        getRitardoStazioni(msg);
+  }else{
+    if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' && msg.text != '/mediaritardi'){
+      return getRitardo(msg);
+    }
   }
-
 });
 
 bot.on(['/stats'], msg => {
@@ -98,9 +101,7 @@ bot.on('/panorama', msg => {
 
 });
 
-bot.on('/stazioni', msg => {
-    getRitardoStazioni(msg);
-});
+
 
 
 bot.on('photo', msg => {
@@ -146,7 +147,7 @@ bot.on('/news', msg => {
 function getRitardoStazioni(msg){
 
   let numeroTreno = msg.text;
-  numeroTreno = numeroTreno.replace('/treno ','');
+  numeroTreno = numeroTreno.replace('/stazioni ','');
 
   //console.log(`messaggio dall'utente: ${ numeroTreno }`);
   var risposta = 'Forse non ho capito, o ci sono dei problemi con il numero del treno che mi hai chiesto :(( Mi scuso per il disagio';
