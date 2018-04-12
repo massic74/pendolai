@@ -183,10 +183,10 @@ function getRitardoStazioni(msg){
                                         if(stazioniArr.length >0){
                                             for (var i = 0; i < stazioniArr.length; i++) {
                                               var dEff = new Date(stazioniArr[i].effettiva);
-                                              var hoursEff = dEff.getUTCHours()).slice(-2);
+                                              var hoursEff = dEff.getUTCHours().slice(-2);
                                               var minutesEff = dEff.getUTCMinutes()).slice(-2);
                                               var dProg = new Date(stazioniArr[i].programmata);
-                                              var hoursProg = dProg.getUTCHours()).slice(-2);
+                                              var hoursProg = dProg.getUTCHours().slice(-2);
                                               var minutesProg = dProg.getUTCMinutes()).slice(-2);
                                               messaggio = messaggio + stazioniArr[i].stazione + ' -programmata: ' + hoursProg + ':' + minutesProg + ' -effettiva: '+ hoursEff + ':' + minutesEff + ' -ritardo: ' + stazioniArr[i].ritardo + '\n       |' + '\n       |';
                                             }
