@@ -183,6 +183,7 @@ function getRitardoStazioni(msg){
                                         if(stazioniArr.length >0){
                                             for (var i = 0; i < stazioniArr.length; i++) {
                                               var dEff = new Date(stazioniArr[i].effettiva);
+                                              console.log(dEff.getUTCHours().slice(-2))
                                               var hoursEff = dEff.getUTCHours().slice(-2);
                                               var minutesEff = dEff.getUTCMinutes().slice(-2);
                                               var dProg = new Date(stazioniArr[i].programmata);
@@ -199,7 +200,7 @@ function getRitardoStazioni(msg){
                                   }
                         })
                       }catch (e){
-                         console.error(err)
+                         console.error(e)
                          bot.sendMessage(msg.from.id, risposta);
                       }
 
