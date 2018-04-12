@@ -238,6 +238,7 @@ function getStats(msg){
   //  ritardiRef.orderByChild("timestamp").limitToLast(1).on("value", function(snapshot) {
   ritardiRef.orderByChild("timestamp").limitToLast(1).on("child_added", function(snapshot) {
         bot.sendMessage('355288686','Ultimo utente: ' + snapshot.val().when + ' : ' + snapshot.val().first_name + ' - ' + snapshot.val().username + ' -> ID: ' + snapshot.val().userID) ;
+        ritardiRef.off("child_added");
   });
 
   ritardiRef.once('value', function(snap) {
@@ -246,7 +247,7 @@ function getStats(msg){
      });
      bot.sendMessage(msg.from.id, 'Numero di utenti: ' + i) ;
   });
-ritardiRef.off("child_added");
+
 }
 
 function ritardoMedio(msg){
