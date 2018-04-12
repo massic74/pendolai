@@ -274,7 +274,7 @@ function ritardoMedio(msg){
 
      });
      console.log('MEDIA RITARDO: ' + Math.round(sommaRitardi/contra * 10) / 10);
-     bot.sendMessage(msg.from.id, 'Dalla base dati che avete generato con le vostre query risulta che la media ritardi è di minuti: ' + Math.round(sommaRitardi/contra * 10) / 10) ;
+     bot.sendMessage(msg.from.id, emoji.emojify(':red_circle:') + emoji.emojify(':red_circle:') + 'Dalla base dati che avete generato con le vostre query risulta che la media ritardi è di minuti: ' + Math.round(sommaRitardi/contra * 10) / 10) ;
      sendGifByRitardo('ritardo', msg);
   });
 
