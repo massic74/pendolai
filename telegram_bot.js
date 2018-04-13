@@ -183,11 +183,12 @@ function getRitardoStazioni(msg){
                                         var stazioniArr = bodyJSON.fermate;
                                         if(stazioniArr.length >0){
                                             for (var i = 0; i < stazioniArr.length; i++) {
-                                              var dEff = new Date(stazioniArr[i].effettiva);
-
+                                              var tsEffNew = (parseInt(stazioniArr[i].effettiva)) + (2 * 60 * 60 * 1000)
+                                              var dEff = new Date(tsEffNew);
                                               var hoursEff = format('hh:mm', dEff);
 
-                                              var dProg = new Date(stazioniArr[i].programmata);
+                                              var tsProgNew = (parseInt(stazioniArr[i].programmata)) + (2 * 60 * 60 * 1000)
+                                              var dProg = new Date(tsProgNew);
                                               var hoursProg = format('hh:mm', dProg);
 
                                               messaggio = messaggio + stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + ' -ritardo: ' + stazioniArr[i].ritardo + '\n       |' + '\n       |';
