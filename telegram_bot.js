@@ -214,7 +214,7 @@ function getRitardoStazioni(msg){
                                               }
 
                                               messaggio =  messaggio + firstBlank + bullet + ' ' + '*' + stazioniArr[i].stazione + '*' + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ';
-                                              onsole.log('tsProgNew: ' + tsProgNew + ' - now:'  + new Date().getTime()) 
+                                              console.log('tsProgNew: ' + tsProgNew + ' - now:'  + new Date().getTime()) 
                                               if(tsProgNew > new Date().getTime()){
                                                 messaggio = messaggio + '    _non ancora partito_';
                                                 break;
