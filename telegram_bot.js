@@ -205,15 +205,18 @@ function getRitardoStazioni(msg){
                                               if(i==0){
                                                 firstBlank = '      --->';
                                               }
-                                              if(stazioniArr[i].ritardo > 0){
-                                                    bullet = emoji.emojify(':red_circle:')
-                                              }else if(stazioniArr[i].ritardo === 0){
-                                                    labelRit = ' - ritardo: '
-                                                    bullet = emoji.emojify(':green_heart:')
-                                              }else if(stazioniArr[i].ritardo < 0){
-                                                    labelRit = ' - anticipo: '
-                                                    bullet = emoji.emojify(':champagne:')
+                                              if(hoursEff != '--'){
+                                                if(stazioniArr[i].ritardo > 0){
+                                                      bullet = emoji.emojify(':red_circle:')
+                                                }else if(stazioniArr[i].ritardo === 0){
+                                                      labelRit = ' - ritardo: '
+                                                      bullet = emoji.emojify(':green_heart:')
+                                                }else if(stazioniArr[i].ritardo < 0){
+                                                      labelRit = ' - anticipo: '
+                                                      bullet = emoji.emojify(':champagne:')
+                                                }                                                
                                               }
+
 
                                               messaggio =  messaggio + firstBlank + bullet + ' ' + '*' + stazioniArr[i].stazione + '*' + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ';
 
