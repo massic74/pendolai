@@ -181,9 +181,13 @@ function getRitardoStazioni(msg){
                                         var sendGIF = true;
                                         if(stazioniArr.length >0){
                                             for (var i = 0; i < stazioniArr.length; i++) {
+
                                               var tsEffNew = (parseInt(stazioniArr[i].effettiva)) + (2 * 60 * 60 * 1000)
                                               var dEff = new Date(tsEffNew);
                                               var hoursEff = format('hh:mm', dEff);
+                                              if(typeof stazioniArr[i].effettiva != "number"){
+                                                hoursEff = '--';
+                                              }
                                               var minRitardo = stazioniArr[i].ritardo + ' min ';
                                               var tsProgNew = (parseInt(stazioniArr[i].programmata)) + (2 * 60 * 60 * 1000)
                                               console.log('tsProgNew: ' + tsProgNew)
@@ -196,11 +200,7 @@ function getRitardoStazioni(msg){
                                               var bullet = '';
                                               var labelRit = ' - ritardo: ';
                                               var firstBlank = '';
-                                          /*    var lastPipe = '|';
 
-                                              if(i === stazioniArr.length -1){
-                                                lastPipe = '';
-                                              } */
                                               if(i==0){
                                                 firstBlank = '      --->';
                                               }
