@@ -190,6 +190,7 @@ function getRitardoStazioni(msg){
                                               var tsProgNew = (parseInt(stazioniArr[i].programmata)) + (2 * 60 * 60 * 1000)
                                               if(tsProgNew > new Date().getTime()){
                                                 minRitardo = '--';
+                                                hoursEff = '--';
                                               }
                                               var dProg = new Date(tsProgNew);
                                               var hoursProg = format('hh:mm', dProg);
@@ -214,13 +215,14 @@ function getRitardoStazioni(msg){
                                                     bullet = emoji.emojify(':champagne:')
                                               }
 
-                                              messaggio =  messaggio + firstBlank + bullet + ' ' +  stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ' + lastPipe;
+                                              messaggio =  messaggio + firstBlank + bullet + ' ' + '*' + stazioniArr[i].stazione + '*' + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ' + lastPipe;
                                               if(tsProgNew > new Date().getTime()){
+                                                messaggio = messaggio + 'non ancora partito';
                                                 break;
                                               }
                                             }
                                         }
-                                        bot.sendMessage(msg.from.id, messaggio);
+                                        bot.sendMessage(msg.from.id, messaggio,{parseMode});
                                       var ritardo = bodyJSON.compRitardo[0];
                                         sendGifByRitardo(ritardo, msg);
                                         saveMessage(msg,ritardo);
