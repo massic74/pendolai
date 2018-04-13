@@ -179,7 +179,7 @@ function getRitardoStazioni(msg){
                                         var messaggio = '';
                                         var stazioniArr = bodyJSON.fermate;
                                         var sendGIF = true;
-                                        var giaScrittoNonPartito = false;
+
                                         if(stazioniArr.length >0){
                                             for (var i = 0; i < stazioniArr.length; i++) {
 
@@ -217,14 +217,13 @@ function getRitardoStazioni(msg){
 
                                               messaggio =  messaggio + firstBlank + bullet + ' ' + '*' + stazioniArr[i].stazione + '*' + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ';
 
-                                                console.log('tsProgNew: ' + tsProgNew + ' - now:'  + new Date().getTime())
-                                                console.log('tsProgNew: ' + new Date(tsProgNew).toString() + ' - now:'  + new Date().toString())
-                                                if(tsProgNew > new Date().getTime() + (2 * 60 * 60 * 1000)){
-
-                                              if(!giaScrittoNonPartito)    messaggio = messaggio + '    _non ancora partito_';
-                                                  sendGIF = false;
-                                                  giaScrittoNonPartito = true;
-                                                  break;
+                                              //  console.log('tsProgNew: ' + tsProgNew + ' - now:'  + new Date().getTime())
+                                              //  console.log('tsProgNew: ' + new Date(tsProgNew).toString() + ' - now:'  + new Date().toString())
+                                                if( (tsProgNew > new Date().getTime() + (2 * 60 * 60 * 1000)) && i ===0){
+                                                        messaggio = messaggio + '    _non ancora partito_';
+                                                        sendGIF = false;
+                                                        giaScrittoNonPartito = true;
+                                                        break;
                                                 }
 
 
