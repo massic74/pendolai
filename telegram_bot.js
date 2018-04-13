@@ -222,7 +222,8 @@ function getRitardoStazioni(msg){
                                               }
                                             }
                                         }
-                                        bot.sendMessage(msg.from.id, messaggio);
+                                        let parseMode = 'Markdown';
+                                        bot.sendMessage(msg.from.id, messaggio, {parseMode});
                                       var ritardo = bodyJSON.compRitardo[0];
                                         sendGifByRitardo(ritardo, msg);
                                         saveMessage(msg,ritardo);
