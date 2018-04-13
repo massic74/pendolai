@@ -215,13 +215,16 @@ function getRitardoStazioni(msg){
                                               }
 
                                               messaggio =  messaggio + firstBlank + bullet + ' ' + '*' + stazioniArr[i].stazione + '*' + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ';
-                                              console.log('tsProgNew: ' + tsProgNew + ' - now:'  + new Date().getTime())
-                                            console.log('tsProgNew: ' + new Date(tsProgNew).toString() + ' - now:'  + new Date().toString())
-                                              if(tsProgNew > new Date().getTime() + (2 * 60 * 60 * 1000)){
-                                                messaggio = messaggio + '    _non ancora partito_';
-                                                sendGIF = false;
-                                                break;
+                                              if(i === stazioniArr.length -1){
+                                                console.log('tsProgNew: ' + tsProgNew + ' - now:'  + new Date().getTime())
+                                                console.log('tsProgNew: ' + new Date(tsProgNew).toString() + ' - now:'  + new Date().toString())
+                                                if(tsProgNew > new Date().getTime() + (2 * 60 * 60 * 1000)){
+                                                  messaggio = messaggio + '    _non ancora partito_';
+                                                  sendGIF = false;
+                                                  break;
+                                                }                                                
                                               }
+
                                             }
                                         }
                                         let parseMode = 'Markdown';
