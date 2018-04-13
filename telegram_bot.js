@@ -185,6 +185,7 @@ function getRitardoStazioni(msg){
                                               var hoursEff = format('hh:mm', dEff);
                                               var minRitardo = stazioniArr[i].ritardo + ' min ';
                                               var tsProgNew = (parseInt(stazioniArr[i].programmata)) + (2 * 60 * 60 * 1000)
+                                              console.log('tsProgNew: ' + tsProgNew)
                                               if(tsProgNew > new Date().getTime()){
                                                 minRitardo = '--';
                                                 hoursEff = '--';
@@ -213,6 +214,7 @@ function getRitardoStazioni(msg){
                                               }
 
                                               messaggio =  messaggio + firstBlank + bullet + ' ' + '*' + stazioniArr[i].stazione + '*' + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ';
+                                              onsole.log('tsProgNew: ' + tsProgNew + ' - now:'  + new Date().getTime()) 
                                               if(tsProgNew > new Date().getTime()){
                                                 messaggio = messaggio + '    _non ancora partito_';
                                                 break;
