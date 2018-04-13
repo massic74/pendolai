@@ -202,7 +202,7 @@ function getRitardoStazioni(msg){
                                                     bullet = emoji.emojify(':champagne:')
                                               }
 
-                                              messaggio =  messaggio + '      ' + bullet + ' ' +  stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + stazioniArr[i].ritardo + ' min '+ ' \n ' + '      |';
+                                              messaggio =  messaggio + '-------' + bullet + ' ' +  stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + stazioniArr[i].ritardo + ' min '+ ' \n ' + '      |';
                                             }
                                         }
                                         bot.sendMessage(msg.from.id, messaggio);
