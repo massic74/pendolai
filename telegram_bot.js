@@ -35,13 +35,10 @@ bot.start();
 
 bot.on('text', msg => {
   console.log(msg.from.id + ' -> ' + msg.text);
-  if(msg.text.indexOf('/stazioni ') != -1){
-        getRitardoStazioni(msg);
-  }else{
     if(msg.text != '/start' && msg.text != '/english' && msg.text != '/italian' && msg.text != '/whois' && msg.text != '/news' && msg.text != '/treno' && msg.text != '/panorama' && msg.text != '/stats' && msg.text != '/mediaritardi'){
-      return getRitardo(msg);
+      return getRitardoStazioni(msg);
     }
-  }
+
 });
 
 bot.on(['/stats'], msg => {
