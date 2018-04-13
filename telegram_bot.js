@@ -194,7 +194,7 @@ function getRitardoStazioni(msg){
                                               var labelRit = ' - ritardo: ';
                                               var firstBlank = '';
                                               if(i==0){
-                                                firstBlank = '            ';
+                                                firstBlank = '               ';
                                               }
                                               if(stazioniArr[i].ritardo > 0){
                                                     bullet = emoji.emojify(':red_circle:')
