@@ -191,8 +191,8 @@ function getRitardoStazioni(msg){
                                               }
                                               var minRitardo = stazioniArr[i].ritardo + ' min ';
                                               var tsProgNew = (parseInt(stazioniArr[i].programmata)) + (2 * 60 * 60 * 1000)
-                                              console.log('tsProgNew: ' + tsProgNew)
-                                              if(tsProgNew > new Date().getTime()){
+
+                                              if(tsEffNew > new Date().getTime()+ (2 * 60 * 60 * 1000) ){
                                                 minRitardo = '--';
                                                 hoursEff = '--';
                                               }
