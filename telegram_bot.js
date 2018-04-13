@@ -186,16 +186,18 @@ function getRitardoStazioni(msg){
                                               var tsEffNew = (parseInt(stazioniArr[i].effettiva)) + (2 * 60 * 60 * 1000)
                                               var dEff = new Date(tsEffNew);
                                               var hoursEff = format('hh:mm', dEff);
-
+                                              var minRitardo = stazioniArr[i].ritardo + ' min ';
                                               var tsProgNew = (parseInt(stazioniArr[i].programmata)) + (2 * 60 * 60 * 1000)
+                                              if(tsProgNew > new Date().getTime()){
+                                                minRitardo = '--';
+                                              }
                                               var dProg = new Date(tsProgNew);
                                               var hoursProg = format('hh:mm', dProg);
                                               var bullet = '';
                                               var labelRit = ' - ritardo: ';
                                               var firstBlank = '';
                                               var lastPipe = '|';
-                                            //  console.log('i:' + i);
-                                          //    console.log
+
                                               if(i === stazioniArr.length -1){
                                                 lastPipe = '';
                                               }
@@ -212,7 +214,10 @@ function getRitardoStazioni(msg){
                                                     bullet = emoji.emojify(':champagne:')
                                               }
 
-                                              messaggio =  messaggio + firstBlank + bullet + ' ' +  stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + stazioniArr[i].ritardo + ' min '+ ' \n ' + '      ' + lastPipe;
+                                              messaggio =  messaggio + firstBlank + bullet + ' ' +  stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ' + lastPipe;
+                                              if(tsProgNew > new Date().getTime()){
+                                                break;
+                                              }
                                             }
                                         }
                                         bot.sendMessage(msg.from.id, messaggio);
