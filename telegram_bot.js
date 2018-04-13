@@ -212,7 +212,7 @@ function getRitardoStazioni(msg){
                                                     bullet = emoji.emojify(':champagne:')
                                               }
 
-                                              messaggio =  messaggio + firstBlank + bullet + ' ' + '*' + stazioniArr[i].stazione + '*' + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ' + lastPipe;
+                                              messaggio =  messaggio + firstBlank + bullet + ' ' + '*' + stazioniArr[i].stazione + '*' + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ';
                                               if(tsProgNew > new Date().getTime()){
                                                 messaggio = messaggio + '    _non ancora partito_';
                                                 break;
