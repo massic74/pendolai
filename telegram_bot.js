@@ -192,6 +192,10 @@ function getRitardoStazioni(msg){
                                               var hoursProg = format('hh:mm', dProg);
                                               var bullet = '';
                                               var labelRit = ' - ritardo: ';
+                                              var firstBlank = '';
+                                              if(i==0){
+                                                firstBlank = '         ';
+                                              }
                                               if(stazioniArr[i].ritardo > 0){
                                                     bullet = emoji.emojify(':red_circle:')
                                               }else if(stazioniArr[i].ritardo === 0){
@@ -202,7 +206,7 @@ function getRitardoStazioni(msg){
                                                     bullet = emoji.emojify(':champagne:')
                                               }
 
-                                              messaggio =  messaggio + '-------' + bullet + ' ' +  stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + stazioniArr[i].ritardo + ' min '+ ' \n ' + '      |';
+                                              messaggio =  messaggio + firstBlank + bullet + ' ' +  stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + stazioniArr[i].ritardo + ' min '+ ' \n ' + '      |';
                                             }
                                         }
                                         bot.sendMessage(msg.from.id, messaggio);
