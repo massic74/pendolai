@@ -178,6 +178,7 @@ function getRitardoStazioni(msg){
                                         var bodyJSON = JSON.parse(body);
                                         var messaggio = '';
                                         var stazioniArr = bodyJSON.fermate;
+                                        var sendGIF = true;
                                         if(stazioniArr.length >0){
                                             for (var i = 0; i < stazioniArr.length; i++) {
                                               var tsEffNew = (parseInt(stazioniArr[i].effettiva)) + (2 * 60 * 60 * 1000)
@@ -218,6 +219,7 @@ function getRitardoStazioni(msg){
                                     //          console.log('tsProgNew: ' + new Date(tsProgNew).toString() + ' - now:'  + new Date().toString())
                                               if(tsProgNew > new Date().getTime() + (2 * 60 * 60 * 1000)){
                                                 messaggio = messaggio + '    _non ancora partito_';
+                                                sendGIF = false;
                                                 break;
                                               }
                                             }
@@ -225,7 +227,7 @@ function getRitardoStazioni(msg){
                                         let parseMode = 'Markdown';
                                         bot.sendMessage(msg.from.id, messaggio, {parseMode});
                                       var ritardo = bodyJSON.compRitardo[0];
-                                        sendGifByRitardo(ritardo, msg);
+                                    if(sendGIF)    sendGifByRitardo(ritardo, msg);
                                         saveMessage(msg,ritardo);
                                   } catch (e) {
                                     console.error(e)
