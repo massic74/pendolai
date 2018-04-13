@@ -217,7 +217,7 @@ function getRitardoStazioni(msg){
 
                                               messaggio =  messaggio + firstBlank + bullet + ' ' + '*' + stazioniArr[i].stazione + '*' + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + minRitardo + ' \n ' + '      ' + lastPipe;
                                               if(tsProgNew > new Date().getTime()){
-                                                messaggio = messaggio + 'non ancora partito';
+                                                messaggio = messaggio + '    _non ancora partito_';
                                                 break;
                                               }
                                             }
