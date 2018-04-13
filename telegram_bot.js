@@ -201,7 +201,7 @@ function getRitardoStazioni(msg){
                                                     labelRit = ' - anticipo: '
                                                     bullet = emoji.emojify(':champagne:')
                                               }
-                                              messaggio =  '      ' +bullet + ' ' messaggio + stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + stazioniArr[i].ritardo + ' min' + '\n       |';
+                                              messaggio =  '      ' +bullet + ' ' messaggio + stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + stazioniArr[i].ritardo + ' min \n       |';
                                             }
                                         }
                                         bot.sendMessage(msg.from.id, messaggio);
