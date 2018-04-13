@@ -194,13 +194,13 @@ function getRitardoStazioni(msg){
                                               var bullet = '';
                                               var labelRit = ' - ritardo: ';
                                               var firstBlank = '';
-                                              var lastPipe = '|';
+                                          /*    var lastPipe = '|';
 
                                               if(i === stazioniArr.length -1){
                                                 lastPipe = '';
-                                              }
+                                              } */
                                               if(i==0){
-                                                firstBlank = '           --->';
+                                                firstBlank = '             ';
                                               }
                                               if(stazioniArr[i].ritardo > 0){
                                                     bullet = emoji.emojify(':red_circle:')
