@@ -194,7 +194,9 @@ function getRitardoStazioni(msg){
                                               var labelRit = ' - ritardo: ';
                                               var firstBlank = '';
                                               var lastPipe = '|';
-                                              if(i== stazioniArr[i]-1){
+                                            //  console.log('i:' + i);
+                                          //    console.log
+                                              if(i === stazioniArr.length -1){
                                                 lastPipe = '';
                                               }
                                               if(i==0){
