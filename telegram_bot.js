@@ -190,8 +190,18 @@ function getRitardoStazioni(msg){
                                               var tsProgNew = (parseInt(stazioniArr[i].programmata)) + (2 * 60 * 60 * 1000)
                                               var dProg = new Date(tsProgNew);
                                               var hoursProg = format('hh:mm', dProg);
-
-                                              messaggio = messaggio + stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + ' -ritardo: ' + stazioniArr[i].ritardo + '\n       |' + '\n       |';
+                                              var bullet = '';
+                                              var labelRit = ' - ritardo: ';
+                                              if(stazioniArr[i].ritardo > 0){
+                                                    bullet = emoji.emojify(':red_circle:')
+                                              }else if(stazioniArr[i].ritardo === 0){
+                                                    labelRit = ' - ritardo: '
+                                                    bullet = emoji.emojify(':green_heart:')
+                                              }else if(stazioniArr[i].ritardo < 0){
+                                                    labelRit = ' - anticipo: '
+                                                    bullet = emoji.emojify(':champagne:')
+                                              }
+                                              messaggio = '       ' + messaggio + stazioniArr[i].stazione + ' -programmata: ' + hoursProg +  ' -effettiva: '+ hoursEff  + labelRit + stazioniArr[i].ritardo + ' min' + '\n       |' + '\n       ' + bullet;
                                             }
                                         }
                                         bot.sendMessage(msg.from.id, messaggio);
